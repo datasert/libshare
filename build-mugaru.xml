@@ -1,0 +1,29 @@
+<project name="Salesforce Sync for Scheduleforce" basedir="." xmlns:sfdc="antlib:com.brsanthu.mungaru.ant">
+	<typedef resource="com/brsanthu/mungaru/ant/antlib.xml" classpath="${user.home}/.ant/lib/monsoon/com.brsanthu.mungaru.ant.jar"/>
+
+	<property file="build.properties"/>
+    <property environment="env"/>
+
+	<target name="listSupportedMetadata">
+		<sfdc:listSupportedMetadata/>
+	</target>
+
+	<target name="printMetadataTree">
+		<sfdc:printMetadataTree/>
+	</target>
+
+	<target name="updateStaticResource">
+		<zip destfile="ResourceFiles.zip" basedir="./ResourceFiles"/>
+		<sfdc:updateStaticResource name="ResourceFiles" file="ResourceFiles.zip"/>
+	</target>
+
+	<target name="retrieveMetadata">
+		<sfdc:retrieveMetadata dest="metadata"/>
+	</target>
+
+	<target name="refreshMetadata">
+        <refreshMetadata includePackages="lib"/>
+	</target>
+
+	
+</project>
