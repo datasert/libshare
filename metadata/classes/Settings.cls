@@ -1,10 +1,10 @@
 global class Settings {
 	
-    private static final Integer MAX_VALUE_LENGTH = 255;
+    private static final Integer SINGLE_VALUE_MAX_LENGTH = 255;
     private static final Integer MAX_KEY_LENGTH = 38;
     private static final Integer MAX_SPLIT_KEYS = 99;
     private static final Integer MAX_MULTI_PART_KEY_LENGTH = 34;
-    private static final Integer MAX_TOTAL_VALUE_LENGTH = (MAX_SPLIT_KEYS + 1) * MAX_VALUE_LENGTH;
+    private static final Integer MAX_TOTAL_VALUE_LENGTH = (MAX_SPLIT_KEYS + 1) * SINGLE_VALUE_MAX_LENGTH;
     
     //Public constructor so it can only be created by Sf.cls
     public Settings() {
@@ -12,32 +12,54 @@ global class Settings {
     }
     
  	global void setString(String key, String value) {
-        logDebug('Setting string ' + key +'=' + value); 
-    	
-        validateKey(key, value);
-  		key = key.trim();
-		
-        validateValue(value);
-        value = value == null ? null : value.trim();
         
+        System.debug('Setting setting ' + key +'=' + value); 
+
+        if (String.isBlank(key)) {
+            throw new SettingsException('Settings key cannot be blank');
+        }
+
+  		key = key.trim();
+        value = value == null ? '' : value.trim();
+
+        Settings__c baseSetting = Settings__c.getValues(key);
+		Decimal maxValueLength = Math.min(MAX_TOTAL_VALUE_LENGTH, baseSetting != null ? baseSetting.Length__c : Math.max(255, value.length()));
+		boolean multiPartKey = maxValueLength > SINGLE_VALUE_MAX_LENGTH;
+        
+        System.debug('maxValueLength=' + maxValueLength);
+        System.debug('multiPartKey=' + multiPartKey);
+        System.debug('baseSetting=' + baseSetting);
+        
+        validateKey(key, value, multiPartKey);
+        validateValue(value, multiPartKey);
+        
+        if (multiPartKey) {
+            setMultiPartString(key, value, baseSetting, maxValueLength);
+        } else {
+            if (baseSetting == null) {
+                baseSetting = new Settings__c();
+                baseSetting.name = key;
+                
+                System.debug('Setting max length to ' + maxValueLength);
+                baseSetting.Length__c = maxValueLength;
+            }
+
+            baseSetting.Value__c = value;
+            upsert baseSetting;
+        }
+    }
+
+    private void setMultiPartString(String key, String value, Settings__c baseSetting, Decimal maxValueLength) {
         List<Settings__c> upserts = new List<Settings__c>();
         List<Settings__c> deletes = new List<Settings__c>();
-
-        List<String> values = splitValue(value, MAX_VALUE_LENGTH);
-        Settings__c baseSetting = Settings__c.getValues(key);
+    	Integer numOfSplitKeys = Integer.valueOf(Math.ceil(maxValueLength / SINGLE_VALUE_MAX_LENGTH)) - 1;
+        List<String> values = splitValue(value, SINGLE_VALUE_MAX_LENGTH);
         
-        for (Integer i = 0; i <= MAX_SPLIT_KEYS; i++) {
+        for (Integer i = 0; i <= numOfSplitKeys; i++) {
             String splitKey = getSplitKey(key, i);
             Settings__c setting = Settings__c.getValues(splitKey);
             
             if (i == 0 && values.isEmpty()) {
-                //Value is empty. If setting is not null, we will just set to null
-                //If setting is null, we need to create setting and set value.
-                if (setting == null) {
-                    setting = new Settings__c();
-                    setting.name = splitKey;
-                }
-                
                 setting.Value__c = null;
                 upserts.add(setting);
 
@@ -53,6 +75,7 @@ global class Settings {
                 if (setting == null) {
                     setting = new Settings__c();
                     setting.name = splitKey;
+                    setting.Length__c = maxValueLength;
                     
                     //This is split key so we will copy some values from base setting
                     if (i > 0 && baseSetting != null) {
@@ -74,7 +97,7 @@ global class Settings {
         }
     }
     
-    private void validateKey(String key, String value) {
+    private void validateKey(String key, String value, boolean multiPartKey) {
         if (String.isBlank(key)) {
             throw new SettingsException('Settings key cannot be blank');
         }
@@ -82,11 +105,12 @@ global class Settings {
         if (key.contains('__')) {
             throw new SettingsException('Key cannot contain two consecutive underscores');
         }
-        
-        if (String.isNotBlank(value) && value.trim().length() > MAX_VALUE_LENGTH) {
+		
+        if (multiPartKey) {
             if (key.length() > MAX_MULTI_PART_KEY_LENGTH) {
-                throw new SettingsException('Settings key with value size more than ' + MAX_VALUE_LENGTH 
-                                            + ' bytes cannot be more than ' + MAX_MULTI_PART_KEY_LENGTH + ' bytes. This is to support storing multi-part keys.');
+                throw new SettingsException('Settings with length more than ' + SINGLE_VALUE_MAX_LENGTH 
+                                            + ' bytes are extended length keys and it cannot be more than ' 
+                                            + MAX_MULTI_PART_KEY_LENGTH + ' bytes.');
             }
         } else {
             if (key.length() > MAX_KEY_LENGTH) {
@@ -95,9 +119,15 @@ global class Settings {
         }
     }
     
-    private void validateValue(String value) {
-        if (String.isNotBlank(value) && value.trim().length() > MAX_TOTAL_VALUE_LENGTH) {
-            throw new SettingsException('Maximum value length cannot be more than ' + MAX_TOTAL_VALUE_LENGTH + ' bytes');
+    private void validateValue(String value, boolean multiPartKey) {
+        if (multiPartKey) {
+            if (value.length() > MAX_TOTAL_VALUE_LENGTH) {
+                throw new SettingsException('Maximum value length cannot be more than ' + MAX_TOTAL_VALUE_LENGTH + ' bytes');
+            }
+        } else {
+            if (value.length() > SINGLE_VALUE_MAX_LENGTH) {
+                throw new SettingsException('Maximum value length cannot be more than ' + SINGLE_VALUE_MAX_LENGTH + ' bytes');
+            }
         }
     }
     
@@ -127,27 +157,54 @@ global class Settings {
     }
 
     global String getString(String key, String defaultValue) {
+        System.debug('Getting setting for key=' + key); 
+
+        if (String.isBlank(key)) {
+            throw new SettingsException('Settings key cannot be blank');
+        }
+
+  		key = key.trim();
+
+        Settings__c baseSetting = Settings__c.getValues(key);
+        if (baseSetting == null) {
+        	System.debug('Setting is does not exist for key ' + key + ' so returning default ' + defaultValue);
+            return defaultValue;
+        }
+        
+		Decimal maxValueLength = Math.min(MAX_TOTAL_VALUE_LENGTH, baseSetting.Length__c == null ? 255 : baseSetting.Length__c);
+		boolean multiPartKey = maxValueLength > SINGLE_VALUE_MAX_LENGTH;
+        
+        System.debug('maxValueLength=' + maxValueLength);
+        System.debug('multiPartKey=' + multiPartKey);
+        System.debug('baseSetting=' + baseSetting);
+        
         String value = '';
-        for (Integer i = 0; i <= MAX_SPLIT_KEYS; i++) {
-            String splitKey = getSplitKey(key, i);
-        	Settings__c setting = Settings__c.getValues(splitKey);
-            if (setting == null) {
-                break;
-            }
+        if (multiPartKey) {
+	    	Integer numOfSplitKeys = Integer.valueOf(Math.ceil(maxValueLength / SINGLE_VALUE_MAX_LENGTH)) - 1;
             
-            if (String.isNotBlank(setting.Value__c)) {
-	            value += setting.Value__c.trim();
+            for (Integer i = 0; i <= numOfSplitKeys; i++) {
+                String splitKey = getSplitKey(key, i);
+                Settings__c setting = Settings__c.getValues(splitKey);
+                if (setting == null) {
+                    break;
+                }
+                
+                if (String.isNotBlank(setting.Value__c)) {
+                    value += setting.Value__c.trim();
+                }
             }
+        } else {
+            value = baseSetting.Value__c == null ? '' : baseSetting.Value__c;
         }
 		
         value = value.trim();
         
         if (String.isBlank(value)) {
-        	logDebug('Setting is null/blank for key ' + key + ' so returning default ' + defaultValue);
+        	System.debug('Setting is null/blank for key ' + key + ' so returning default ' + defaultValue);
             return defaultValue;
         }
         
-        logDebug('Returning the Setting ' + key + '=' + value);        
+        System.debug('Returning the Setting ' + key + '=' + value);        
         return value;
     }
 
@@ -181,7 +238,7 @@ global class Settings {
             value = Integer.valueOf(stringValue);
         }
         
-        logDebug('Returning the Integer setting for ' + key + ' as ' + value);
+        System.debug('Returning the Integer setting for ' + key + ' as ' + value);
         return value;
     }
     
@@ -206,7 +263,7 @@ global class Settings {
             value = Decimal.valueOf(stringValue);
         }
         
-        logDebug('Returning the Decimal setting for ' + key + ' as ' + value);
+        System.debug('Returning the Decimal setting for ' + key + ' as ' + value);
         return value;
     }
 
@@ -232,7 +289,7 @@ global class Settings {
             value = Boolean.valueOf(stringValue);
         }
         
-        logDebug('Returning the Boolean setting for ' + key + ' as ' + value);
+        System.debug('Returning the Boolean setting for ' + key + ' as ' + value);
         return value;
     }
     
@@ -258,7 +315,7 @@ global class Settings {
             value = Date.valueOf(stringValue);
         }
         
-        logDebug('Returning the Date setting for ' + key + ' as ' + value);
+        System.debug('Returning the Date setting for ' + key + ' as ' + value);
         return value;
     }
 
@@ -284,7 +341,7 @@ global class Settings {
             value = (DateTime)json.deserialize('"' + stringValue + '"', DateTime.class);
         }
         
-        logDebug('Returning the DateTime setting for ' + key + ' as ' + value);
+        System.debug('Returning the DateTime setting for ' + key + ' as ' + value);
         return value;
     }
     
@@ -470,7 +527,7 @@ global class Settings {
             value = (Map<String, Object>) Json.deserializeUntyped(stringValue);
         }
         
-        logDebug('Returning the Json setting for ' + key + ' as ' + value);
+        System.debug('Returning the Json setting for ' + key + ' as ' + value);
         return value;
     }
     
@@ -491,11 +548,11 @@ global class Settings {
             value = Json.deserialize(stringValue, cls);
         }
         
-        logDebug('Returning the Json setting for ' + key + ' as ' + value);
+        System.debug('Returning the Json setting for ' + key + ' as ' + value);
         return value;
     }
     
-    global void clearEnvSpecificSettings() {
+    global void clearEnvSpecificValues() {
         
         List<Settings__c> settings = [select Value__c from Settings__c where Env_Specific__c = true];
         for (Settings__c setting : settings) {
@@ -505,7 +562,7 @@ global class Settings {
         update settings;
     }
 	
-    global void clearNullStrings() {
+    global void clearNullValues() {
         List<Settings__c> settings = [select Value__c from Settings__c];
         
         for (Settings__c setting : settings) {
@@ -516,8 +573,4 @@ global class Settings {
         
         update settings;        
     }    
-    
-    private void logDebug(String msg) {
-        System.debug(msg);
-    }
 }

@@ -89,7 +89,7 @@ public class SettingsTest {
         System.assertEquals('bob', settings.getString(testKey, 'bob'));
     }
     
-    testmethod public static void testGetString() {
+    testmethod public static void test_getString() {
         
         try {
             settings.getString(testKey);            
@@ -392,7 +392,7 @@ public class SettingsTest {
         Settings__c setting = new Settings__c(Name=testKey, Value__c='Value', Env_Specific__c=true);
         insert setting;
         
-        settings.clearEnvSpecificSettings();
+        settings.clearEnvSpecificValues();
         
         System.assertEquals(null, settings.getString(testKey, null));
     }
@@ -401,7 +401,7 @@ public class SettingsTest {
         Settings__c setting = new Settings__c(Name='Test', Value__c='null');
         insert setting;
         
-        settings.clearNullStrings();
+        settings.clearNullValues();
 		
         System.assertEquals(null, settings.getString('Test', null));
 		
@@ -411,14 +411,22 @@ public class SettingsTest {
         String longString = createString(25500);
 		settings.setString(testKey, longString);
         System.assertEquals(longString, settings.getString(testKey));
-        
 		sf.assert.that(countKeys(testKey)).isEqualsTo(100);
+        settings.setString(testKey, null);
         
         //By setting to short key now, we are ensuring that split keys are handled appropriately
         String shortString = 'MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkq';
 		settings.setString(testKey, shortString);
         System.assertEquals(shortString, settings.getString(testKey));
         sf.assert.that(countKeys(testKey)).isEqualsTo(1);
+    }
+
+    testmethod public static void test_setVariousKeyLength() {
+        for (Integer i = 1; i <= 150; i+=150) {
+            String longString = createString(i);
+            settings.setString(testKey + i, longString);
+            System.assertEquals(longString, settings.getString(testKey + i));
+        }
     }
 
     testmethod public static void test_setLongMap() {

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
-    <description>Custom settings to store all general purpose settings for the application. These settings should be accessed via dlib.sf.appsettings.</description>
+    <description>Custom settings to store all general purpose settings for the application. These settings should be accessed via lib.sf.settings.</description>
     <enableFeeds>false</enableFeeds>
     <fields>
         <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Any description that gives more information about the settings and its usage.</inlineHelpText>
         <label>Description</label>
@@ -15,6 +16,7 @@
     <fields>
         <fullName>Env_Specific__c</fullName>
         <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>If checked, this setting should not be copied over from one environment to another.</inlineHelpText>
         <label>Env Specific</label>
@@ -22,9 +24,24 @@
         <type>Checkbox</type>
     </fields>
     <fields>
-        <fullName>Type__c</fullName>
+        <fullName>Length__c</fullName>
+        <defaultValue>255</defaultValue>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
-        <inlineHelpText>Data type of this Setting. Valid values are String, Integer, Decimal, Date, Datetime, Json, Boolean, List, Map, Set</inlineHelpText>
+        <inlineHelpText>Indicates the maximum length of value this key supports. Defaults to 255 and max 25,000. You can specify higher value than 255 and if so value will be split into part of 255 bytes and will be stored as additional keys.</inlineHelpText>
+        <label>Length</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Data type of this Setting. Valid values are string, integer, decimal, date, datetime, json, boolean, list, map, set</inlineHelpText>
         <label>Type</label>
         <length>25</length>
         <required>false</required>
@@ -34,6 +51,7 @@
     </fields>
     <fields>
         <fullName>Value__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>The setting value can be stored in one or more value{n}__c fields depending on big that value is. The values are Value1__c, Value2__c etc.,</inlineHelpText>
         <label>Value</label>

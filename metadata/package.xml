@@ -35,6 +35,7 @@
     <types>
         <members>Settings__c.Description__c</members>
         <members>Settings__c.Env_Specific__c</members>
+        <members>Settings__c.Length__c</members>
         <members>Settings__c.Type__c</members>
         <members>Settings__c.Value__c</members>
         <name>CustomField</name>
