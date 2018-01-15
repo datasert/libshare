@@ -4,6 +4,12 @@ Libshare is a set of reusable modules inspired by years of developing Salesforce
 
 It is licensed under [Apache License 2.0](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)).
 
+Install
+==
+Latest version: 1.1
+* [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1N000001LzPk)
+* [Production](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t1N000001LzPk)
+
 Modules
 ==
 
@@ -168,3 +174,14 @@ public class ExampleTest {
     }
 }
 ```
+
+Release Notes
+==
+
+Version 1.1
+--
+* Optimize settings for single value as that is mosed often used
+
+Version 1.0
+--
+* Initial version of package with Settings and Fluent Assertions
