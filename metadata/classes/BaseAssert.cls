@@ -26,7 +26,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isEqualsTo(Object expected) {
-        return common_isEqualsTo(expected, format('Expected that actual [{0}] to be equals to [{1}] but is not', actual, expected));
+        return common_isEqualsTo(expected, format('Expected: [{0}] Actual: [{1}]', expected, actual));
     }
 
     public virtual BaseAssert common_isEqualsTo(Object expected, String msg) {

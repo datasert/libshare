@@ -13,5 +13,10 @@ public class LibshareTests {
         new BooleanAssertTest();
         new DateAssertTest();
         new DatetimeAssertTest();
+        
+        new LoggerTest();
+        new UtilsTest();
+        new AppLoggerTest();
+        new AppLogBuilderTest();
     }
 }

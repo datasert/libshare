@@ -12,4 +12,19 @@ global class Sf {
         }
         return assert;
     }private set;}
+
+    global static AppLogger appLogger {get {
+        if (appLogger == null) {
+            appLogger =  new AppLogger();
+        }
+        return appLogger;
+    }private set;}
+
+    global static AppLogBuilder newAppLog() {
+        return newAppLog(null, null);
+    }
+
+    global static AppLogBuilder newAppLog(String module, String action) {
+        return new AppLogBuilder().module(module).action(action);
+    }
 }
