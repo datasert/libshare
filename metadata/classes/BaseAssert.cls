@@ -8,7 +8,7 @@ public virtual class BaseAssert {
     }
     
     public virtual BaseAssert common_isNull() {
-		return common_isNull(format('Expected that actual [{0}] to be [null] but is not', actual));
+        return common_isNull(format('Expected: <null>, Actual: <not null> {0}', actual));
     }
 
     public virtual BaseAssert common_isNull(String msg) {
@@ -17,7 +17,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isNotNull() {
-		return common_isNotNull('Expected that actual to be not [null] but is');
+		return common_isNotNull('Expected: <not null>, Actual: <null>');
     }
     
     public virtual BaseAssert common_isNotNull(String msg) {
@@ -26,7 +26,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isEqualsTo(Object expected) {
-        return common_isEqualsTo(expected, format('Expected: [{0}] Actual: [{1}]', expected, actual));
+        return common_isEqualsTo(expected, format('Expected: {0}, Actual: {1}', expected, actual));
     }
 
     public virtual BaseAssert common_isEqualsTo(Object expected, String msg) {
@@ -47,7 +47,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isNotEqualsTo(Object expected) {
-        return common_isNotEqualsTo(expected, format('Expected that actual [{0}] to be not equals to [{1}] but is', actual, expected));
+        return common_isNotEqualsTo(expected, format('Expected: different value than {0}', actual));
     }
 
     public virtual BaseAssert common_isNotEqualsTo(Object expected, String msg) {
@@ -68,7 +68,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isSameAs(Object expected) {
-        return common_isSameAs(expected, format('Expected that actual [{0}] to be same as [{1}] but is not', actual, expected));
+        return common_isSameAs(expected, format('Expected: {0}, Actual: {1}', expected, actual));
     }
 
     public virtual BaseAssert common_isSameAs(Object expected, String msg) {
@@ -80,7 +80,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isNotSameAs(Object expected) {
-        return common_isNotSameAs(expected, format('Expected that actual [{0}] to be not same as [{1}] but is', actual, expected));
+        return common_isNotSameAs(expected, format('Expected: not same as {0}, Actual: same as {0}', expected));
     }
     
     public virtual BaseAssert common_isNotSameAs(Object expected, String msg) {

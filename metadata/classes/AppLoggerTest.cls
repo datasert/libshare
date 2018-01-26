@@ -5,7 +5,7 @@ public class AppLoggerTest {
     testmethod public static void test_logError() {
         TestUtils.setCurrentDateTime(DateTime.newInstance(2017, 01, 01));
         
-        Sf.appLogger.logError('Something terrible happened.', new Utils().createTestException());
+        Sf.appLogger.saveError('Module', 'Action', 'Something terrible happened.', new Utils().createTestException());
         
         App_Log__c alObj = queryAppLogs().get(0);
         assert.that(alObj.Module__c).isEqualsTo('lib.Utils');

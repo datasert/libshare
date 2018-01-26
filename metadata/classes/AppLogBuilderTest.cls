@@ -21,12 +21,12 @@ public class AppLogBuilderTest {
             .appTask(appTask)
             .externalId('some external id')
             .record(appTask)
-			.append('Starting processing')
-            .append('Some error', new LibshareException())
+			.log('Starting processing')
+            .log('Some error', new LibshareException())
             .typeError();
             
-        App_Log__c alObj = appLog.getAppLog();
-		appLog.setAppLog(alObj);
+        App_Log__c alObj = appLog.getLogRecord();
+		appLog.setLogRecord(alObj);
         
         assert.that(alObj.Action__c).isEqualsTo('LogTest');
         assert.that(alObj.Module__c).isEqualsTo('UnitTest');

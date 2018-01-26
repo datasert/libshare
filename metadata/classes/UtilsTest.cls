@@ -41,11 +41,12 @@ public class UtilsTest {
         assert.that(u.getCallingClassAndMethod()[1]).isEqualsTo('test_getCallingClassAndMethod');
     }
 
-    testmethod public static void test_isTrue() {
-    	assert.that(u.isTrue(null)).isFalse();
-    	assert.that(u.isTrue('')).isFalse();
-    	assert.that(u.isTrue(true)).isTrue();
-    	assert.that(u.isTrue('true')).isTrue();
+    testmethod public static void test_toBoolean() {
+    	assert.that(u.toBoolean(null)).isFalse();
+    	assert.that(u.toBoolean(null, true)).isTrue();
+    	assert.that(u.toBoolean('')).isFalse();
+    	assert.that(u.toBoolean(true)).isTrue();
+    	assert.that(u.toBoolean('true')).isTrue();
     }
     
     testmethod public static void test_encode() {
@@ -107,13 +108,14 @@ public class UtilsTest {
         assert.that(u.encodeBase64UrlSafe((Blob) null)).isEqualsTo(null);
     }
     
-    testmethod public static void test_normalizeInt() {
-        assert.that(u.normalize(null, null, null, null)).isEqualsTo(null);
-        assert.that(u.normalize(10, null, null, null)).isEqualsTo(10);
-        assert.that(u.normalize(null, null, 50, null)).isEqualsTo(50);
-        assert.that(u.normalize(10, null, 50, null)).isEqualsTo(10);
-        assert.that(u.normalize(10, 20, 50, null)).isEqualsTo(20);
-        assert.that(u.normalize(100, 20, 50, 80)).isEqualsTo(80);
+    testmethod public static void test_toInteger() {
+        assert.that(u.toInteger(null, 10)).isEqualsTo(10);
+        assert.that(u.toInteger(null, null, null, null)).isEqualsTo(null);
+        assert.that(u.toInteger(10, null, null, null)).isEqualsTo(10);
+        assert.that(u.toInteger(null, null, 50, null)).isEqualsTo(50);
+        assert.that(u.toInteger(10, null, 50, null)).isEqualsTo(10);
+        assert.that(u.toInteger(10, 20, 50, null)).isEqualsTo(20);
+        assert.that(u.toInteger(100, 20, 50, 80)).isEqualsTo(80);
     }
     
     testmethod public static void test_replaceVars() {
@@ -133,6 +135,7 @@ public class UtilsTest {
         assert.that(u.toString(null)).isEqualsTo(null);
         assert.that(u.toString('test')).isEqualsTo('test');
         assert.that(u.toString(DateTime.newInstanceGmt(2017, 1, 1, 0, 0, 0))).isEqualsTo('2017-01-01T00:00:00Z');
+        assert.that(u.toString(Date.newInstance(2017, 1, 1))).isEqualsTo('2017-01-01');
     }
     
     testmethod public static void test_parseIsoDateTime() {
@@ -292,10 +295,12 @@ public class UtilsTest {
         
         String st1 = '';
         String st2 = '';
+        String st3 = '';
         
         System.assertEquals(st1, u.firstNotNull(st1, null));
         System.assertEquals(st1, u.firstNotNull(st1, st2));
         System.assertEquals(st2, u.firstNotNull(null, st2));
+        System.assertEquals(st3, u.firstNotNull(null, null, st3));
     }
     
     testmethod public static void test_firstNotBlank() {
@@ -356,5 +361,79 @@ public class UtilsTest {
         assert.that(u.split('ab', 3).size()).isEqualsTo(1);
         assert.that(u.split('abc', 3).size()).isEqualsTo(1);
         assert.that(u.split('abcd', 3).size()).isEqualsTo(2);
+    }
+
+    testmethod public static void test_sleep() {
+    	StopWatch sw = new StopWatch();
+        u.sleep(100);
+        assert.that(sw.getElapsedTime()).isGreaterThan(90);
+    }
+    
+    testmethod public static void test_getRandomString() {
+        assert.that(u.getRandomString(0).length()).isEqualsTo(0);
+        assert.that(u.getRandomString(1).length()).isEqualsTo(1);
+        assert.that(u.getRandomString(9).length()).isEqualsTo(9);
+        assert.that(u.getRandomString(10).length()).isEqualsTo(10);
+        assert.that(u.getRandomString(11).length()).isEqualsTo(11);
+        assert.that(u.getRandomString(19).length()).isEqualsTo(19);
+        assert.that(u.getRandomString(99).length()).isEqualsTo(99);
+        assert.that(u.getRandomString(100).length()).isEqualsTo(100);
+        assert.that(u.getRandomString(9999).length()).isEqualsTo(9999);
+    }
+ 	
+    testmethod public static void test_getRandomInteger() {
+		assert.that(u.getRandomInteger()).isGreaterThanOrEqualsTo(0);
+        for (Integer i = 0; i< 1000; i++) {
+			assert.that(u.getRandomInteger(5)).isBetweenInclusive(0, 10);
+        }
+
+        for (Integer i = 0; i< 1000; i++) {
+			assert.that(u.getRandomInteger(0, 10)).isBetweenInclusive(0, 10);
+        }
+    }
+
+    testmethod public static void test_getStaticResource() {
+    	assert.that(u.getStaticResource('LibshareTestResource')).isEqualsTo('This is Libshare Static Resource used for unit testing');
+        
+        try {
+            u.getStaticResource('NotExistingOne');
+            assert.expectedException();
+        } catch (Exception e) {}
+    }
+    
+    testmethod public static void test_getClassAndMethod() {
+        assert.that(u.getClassAndMethod(new List<String>{}, 0)[0]).isEqualsTo('Unknown');
+        assert.that(u.getClassAndMethod(new List<String>{'NotValid'}, 0)[0]).isEqualsTo('Unknown');
+        assert.that(u.getClassAndMethod(new List<String>{'Class.ClassName.methodName:'}, 0)[0]).isEqualsTo('ClassName');
+        assert.that(u.getClassAndMethod(new List<String>{'Class.ClassName.methodName:'}, 0)[1]).isEqualsTo('methodName');
+        assert.that(u.getClassAndMethod(new List<String>{'Class.ClassName'}, 0)[0]).isEqualsTo('ClassName');
+        assert.that(u.getClassAndMethod(new List<String>{'Class.ClassName'}, 0)[1]).isEqualsTo('Unknown');
+    }
+    
+    testmethod static void test_durationTiny() {
+        assert.that(u.getDurationTiny(1)).isEqualsTo('1ms');
+
+        assert.that(u.getDurationTiny(1000)).isEqualsTo('1s');
+        assert.that(u.getDurationTiny(1001)).isEqualsTo('1s 1ms');
+
+        assert.that(u.getDurationTiny(61000)).isEqualsTo('1m 1s');
+        assert.that(u.getDurationTiny(61001)).isEqualsTo('1m 1s 1ms');
+
+        assert.that(u.getDurationTiny(3600000)).isEqualsTo('1h');
+        assert.that(u.getDurationTiny(3600001)).isEqualsTo('1h 1ms');
+        assert.that(u.getDurationTiny(3601001)).isEqualsTo('1h 1s 1ms');
+        assert.that(u.getDurationTiny(3661001)).isEqualsTo('1h 1m 1s 1ms');
+
+        assert.that(u.getDurationTiny(86400000L)).isEqualsTo('1d');
+        assert.that(u.getDurationTiny(86400001L)).isEqualsTo('1d 1ms');
+        assert.that(u.getDurationTiny(86401001L)).isEqualsTo('1d 1s 1ms');
+        assert.that(u.getDurationTiny(86460001L)).isEqualsTo('1d 1m 1ms');
+        assert.that(u.getDurationTiny(1516832385000L)).isEqualsTo('1d 1m 1s 1ms');
+
+        assert.that(u.getDurationTiny(86461001L)).isEqualsTo('1d 1m 1s 1ms');
+
+        assert.that(u.getDurationTiny(1000 * 60 * 60 * 24 * 30L)).isEqualsTo('1mn');
+        assert.that(u.getDurationTiny((1000 * 60 * 60 * 24 * 30L) + 10L)).isEqualsTo('1mn 10ms');
+        assert.that(u.getDurationTiny((1000 * 60 * 60 * 24 * 30L) + 10 * 1000L)).isEqualsTo('1mn 10s');
     }
 }

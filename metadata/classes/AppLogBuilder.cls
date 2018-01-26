@@ -2,7 +2,7 @@ global class AppLogBuilder {
 	private App_Log__c appLog = new App_Log__c();
     private static Utils u = new Utils();
     
-    public AppLogBuilder() {
+    global AppLogBuilder() {
     }
     
     global AppLogBuilder module(String value) {
@@ -75,21 +75,26 @@ global class AppLogBuilder {
         return this;
     }
     
-    global AppLogBuilder append(String value) {
-		Sf.appLogger.append(appLog, value);
+    global AppLogBuilder log(String value) {
+		Sf.appLogger.log(appLog, value);
         return this;
     }
     
-    global AppLogBuilder append(String message, Exception e) {
-		Sf.appLogger.append(appLog, message, e);
+    global AppLogBuilder log(String message, Exception e) {
+		Sf.appLogger.log(appLog, message, e);
         return this;
     }
 
-    global App_Log__c getAppLog() {
+    global AppLogBuilder set(String field, Object value) {
+		appLog.put(field, value);
+        return this;
+    }
+
+    global App_Log__c getLogRecord() {
         return appLog;
     }
     
-    global AppLogBuilder setAppLog(App_Log__c appLog) {
+    global AppLogBuilder setLogRecord(App_Log__c appLog) {
         this.appLog = appLog;
         return this;
     }

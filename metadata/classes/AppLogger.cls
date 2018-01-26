@@ -5,10 +5,13 @@ global class AppLogger {
     private static Utils u = new Utils();
     private static List<App_Log__c> stashedLogs = new List<App_Log__c>();
     
-    global void logError(String Message, Exception e) {
-        save(append(new App_Log__c(), message, e));
+    global void saveError(String module, String action, String Message, Exception e) {
+        App_Log__c appLog = new App_Log__c();
+        appLog.Module__c = module;
+        appLog.Action__c = action;
+        save(log(appLog, message, e));
     }
-    
+
     global void save(App_Log__c appLog) {
         save(new List<App_Log__c>{appLog});
     }
@@ -55,7 +58,7 @@ global class AppLogger {
         }
     }
 
-    public App_Log__c append(App_Log__c appLog, String value) {
+    public App_Log__c log(App_Log__c appLog, String value) {
         if (String.isBlank(value)) {
             return appLog;
         }
@@ -67,7 +70,7 @@ global class AppLogger {
         return appLog;
     }
     
-    public App_Log__c append(App_Log__c appLog, String message, Exception e) {
+    public App_Log__c log(App_Log__c appLog, String message, Exception e) {
         if (String.isBlank(message) && e == null) {
             return appLog;
         }
@@ -92,8 +95,8 @@ global class AppLogger {
             if (e instanceof LogDetailsProvider) {
                 details += '\n' + ((LogDetailsProvider) e).getLogDetails();
             }
-            details += '\nException: ' + u.getStackTrace(e);
-			append(appLog, details.trim());
+            details += '\nException: ' + appLog.Message__c +'\nStacktrace: ' + u.getStackTrace(e);
+			log(appLog, details.trim());
         }
         
         return appLog;

@@ -8,7 +8,7 @@ global class StringAssert extends BaseAssert {
     }
 	
     private String getIgnoreCaseMessagePart() {
-        return ignoreCase ? '(ignoring case) ' : '';
+        return ignoreCase ? ' (ignoring case)' : '';
     }
     
     private String getActual() {
@@ -56,7 +56,7 @@ global class StringAssert extends BaseAssert {
     }
     
     global StringAssert isEqualsTo(Object expected) {
-        return isEqualsTo(expected, format('Expected that actual [{0}] to be equals to [{1}] ' + getIgnoreCaseMessagePart () + 'but is not', actual, expected));
+        return isEqualsTo(expected, format('Expected' + getIgnoreCaseMessagePart() + ': {0}, Actual: {1}', expected, actual));
     }
 
     global StringAssert isEqualsTo(Object expected, String msg) {
@@ -73,7 +73,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global virtual StringAssert isNotEqualsTo(Object expected) {
-        return isNotEqualsTo(expected, format('Expected that actual [{0}] to be not equals to [{1}] ' + getIgnoreCaseMessagePart () + 'but is', actual, expected));
+        return isNotEqualsTo(expected, format('Expected' + getIgnoreCaseMessagePart() + ': not equals to {0}, Actual: same', expected, actual));
     }
 
     global virtual StringAssert isNotEqualsTo(Object expected, String msg) {
@@ -108,7 +108,7 @@ global class StringAssert extends BaseAssert {
     }
     
     global StringAssert isNullOrEmpty() {
-        return isNullOrEmpty(format('Expected that actual [{0}] to be either null or empty but is not', actual));
+        return isNullOrEmpty(format('Expected: <null or empty>, Actual: {0}', actual));
     }
     global StringAssert isNullOrEmpty(String msg) {
         if (actual != null && !String.isEmpty(actual)) {
@@ -119,7 +119,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isEmpty() {
-        return isEmpty(format('Expected that actual [{0}] to be empty but is not', actual));
+        return isEmpty(format('Expected: <empty>, Actual: {0}', actual));
     }
     global StringAssert isEmpty(String msg) {
         if (actual == null || !String.isEmpty(actual)) {
@@ -130,7 +130,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isNotEmpty() {
-        return isNotEmpty(format('Expected that actual [{0}] to be not empty but is', actual));
+        return isNotEmpty(format('Expected: <not empty>, Actual: empty', actual));
     }
     global StringAssert isNotEmpty(String msg) {
         if (actual == null) {
@@ -145,7 +145,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isNullOrBlank() {
-        return isNullOrBlank(format('Expected that actual [{0}] to be either null or blank but is not', actual));
+        return isNullOrBlank(format('Expected: <not null or blank>, Actual: {0}', actual));
     }
     global StringAssert isNullOrBlank(String msg) {
         if (actual != null && !String.isBlank(actual)) {
@@ -156,7 +156,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isBlank() {
-        return isBlank(format('Expected that actual [{0}] to be blank but is not', actual));
+        return isBlank(format('Expected: <blank>, Actual: {0}', actual));
     }
     global StringAssert isBlank(String msg) {
         if (actual == null || !String.isBlank(actual)) {
@@ -167,7 +167,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isNotBlank() {
-        return isNotBlank(format('Expected that actual [{0}] to be not blank but is', actual));
+        return isNotBlank(format('Expected: <not blank>, Actual: {0}', actual));
     }
     
     global StringAssert isNotBlank(String msg) {
@@ -184,7 +184,7 @@ global class StringAssert extends BaseAssert {
 
     global StringAssert hasSize(Integer size) {
         isNotNull();
-        return hasSize(size, format('Expected that actual [{0}] to have size [{1}] but it has [{2}]', actual, size, actual.length()));
+        return hasSize(size, format('Expected: <size {0}>, Actual: <size {1}> {2}', size, actual.length(), actual));
     }
     global StringAssert hasSize(Integer size, String msg) {
         isNotNull();
@@ -195,7 +195,7 @@ global class StringAssert extends BaseAssert {
     global StringAssert hasLineCount(Integer lines) {
         isNotNull();
         Integer actualLines = actual.split('\n').size();
-        assert(lines == actualLines, format('Expected that actual [{0}] to have [{1}] lines but it has [{2}]', actual, lines, actualLines));
+        assert(lines == actualLines, format('Expected: <{0} lines>, Actual: <{1} lines> {2}', lines, actualLines, actual));
         return this;
     }
 
@@ -212,7 +212,7 @@ global class StringAssert extends BaseAssert {
         }
         
         if (actual == null || other == null || actual.length() != other.length()) {
-	        assert(false, format('Expected that actual [{0}] to have same size as [{1}] but is not', actual, other));
+            assert(false, format('Expected: <size {0}>, Actual: <size {1}>', other, actual));
         }
         return this;
     }
@@ -229,7 +229,7 @@ global class StringAssert extends BaseAssert {
     }
     
     global StringAssert startsWith(String other) {
-        return startsWith(other, format('Expected that actual [{0}] to start with [{1}] ' + getIgnoreCaseMessagePart () + 'but is not', actual, other));
+        return startsWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <starts with> {0}, Actual: {1}', other, actual));
     }
     global StringAssert startsWith(String other, String msg) {
         isNotNull();
@@ -240,7 +240,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert doesNotStartWith(String other) {
-        return doesNotStartWith(other, format('Expected that actual [{0}] to not start with [{1}] ' + getIgnoreCaseMessagePart () + 'but is', actual, other));
+        return doesNotStartWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not starts with> {0}, Actual: {1}', other, actual));
     }
     global StringAssert doesNotStartWith(String other, String msg) {
         isNotNull();
@@ -251,7 +251,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert endsWith(String other) {
-        return endsWith(other, format('Expected that actual [{0}] to end with [{1}] ' + getIgnoreCaseMessagePart () + 'but is not', actual, other));
+        return endsWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <ends with> {0}, Actual: {1}', other, actual));
     }
     global StringAssert endsWith(String other, String msg) {
         isNotNull();
@@ -262,7 +262,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert doesNotEndWith(String other) {
-        return doesNotEndWith(other, format('Expected that actual [{0}] to not end with [{1}] ' + getIgnoreCaseMessagePart () + 'but is', actual, other));
+        return doesNotEndWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not ends with> {0}, Actual: {1}', other, actual));
     }
     global StringAssert doesNotEndWith(String other, String msg) {
         isNotNull();
@@ -273,7 +273,7 @@ global class StringAssert extends BaseAssert {
     }
     
     global StringAssert contains(String other) {
-        return contains(other, format('Expected that actual [{0}] to contain [{1}] ' + getIgnoreCaseMessagePart () + 'but is not', actual, other));
+        return contains(other, format('Expected' + getIgnoreCaseMessagePart() + ': <contains> {0}, Actual: {1}', other, actual));
     }
     global StringAssert contains(String other, String msg) {
         isNotNull();
@@ -284,7 +284,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert doesNotContain(String other) {
-        return doesNotContain(other, format('Expected that actual [{0}] to not contain [{1}] ' + getIgnoreCaseMessagePart () + 'but is', actual, other));
+        return doesNotContain(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not contains> {0}, Actual: {1}', other, actual));
     }
     global StringAssert doesNotContain(String other, String msg) {
         isNotNull();
@@ -295,7 +295,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert matches(String otherRegex) {
-        return matches(otherRegex, format('Expected that actual [{0}] to regex match [{1}] but is not', actual, otherRegex));
+        return matches(otherRegex, format('Expected: <matches regex> {0}, Actual: <not matches regex> {1}', otherRegex, actual));
     }
     global StringAssert matches(String otherRegex, String msg) {
         isNotNull();
@@ -306,7 +306,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert doesNotMatch(String otherRegex) {
-        return doesNotMatch(otherRegex, format('Expected that actual [{0}] to not regex match [{1}] but is', actual, otherRegex));
+        return doesNotMatch(otherRegex, format('Expected: <not matches regex> {0}, Actual: <matches regex> {1}', otherRegex, actual));
     }
     global StringAssert doesNotMatch(String otherRegex, String msg) {
         isNotNull();
@@ -317,7 +317,7 @@ global class StringAssert extends BaseAssert {
     }
 
     global StringAssert isSubstringOf(String other) {
-        return isSubstringOf(other, format('Expected that actual [{0}] to be substring of [{1}] ' + getIgnoreCaseMessagePart () + 'but is not', actual, other));
+        return isSubstringOf(other, format('Expected' + getIgnoreCaseMessagePart() + ': <substring of> {0}, Actual: {1}', other, actual));
     }
     global StringAssert isSubstringOf(String other, String msg) {
         isNotNull();

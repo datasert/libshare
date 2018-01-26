@@ -1,16 +1,17 @@
 global virtual class Utils {
-    global virtual Boolean isTrue(Object obj) {
-        if (obj == null) {
-            return false;
-
-        } else if (obj instanceof Boolean) {
-            return (Boolean) obj;
-
-        } else {
-            return Boolean.valueOf(String.valueOf(obj));
-        }
-    }
-
+    private static final List<String> durationNamesLong = new List<String>{' years', ' months', ' days', ' hours', ' minutes', ' seconds', ' milliseconds'};
+    private static final List<String> durationNameShort = new List<String>{' yrs', ' mths', ' days', ' hrs', ' mins', ' secs', ' millis'};
+    private static final List<String> durationNameTiny = new List<String>{'y', 'mn', 'd', 'h', 'm', 's', 'ms'};
+    public static final Long MILLIS = 1000;
+    public static final Long SECS = 1000 * 60;
+    public static final Long MINS = 60 * SECS;
+    public static final Long HRS = 60 * MINS;
+    public static final Long DAYS = 24 * HRS;
+    public static final Long MONTHS = 30 * DAYS;
+    public static final Long YEARS = 12 * MONTHS;
+    
+    global static final Utils INSTANCE = new Utils();
+	    
     global virtual String encode(String value, String encodeMode) {
         if (String.isBlank(value)) {
             return value;
@@ -138,21 +139,44 @@ global virtual class Utils {
 
         return EncodingUtil.base64Decode(value);
     }
+    
+    global virtual Boolean toBoolean(Object obj) {
+        return toBoolean(obj, false);
+    }
+    
+    global virtual Boolean toBoolean(Object obj, boolean defaultValue) {
+        if (obj == null) {
+            return defaultValue;
 
-    global virtual Integer normalize(Integer value, Integer min, Integer defaultValue, Integer max) {
+        } else if (obj instanceof Boolean) {
+            return (Boolean) obj;
+
+        } else {
+            return Boolean.valueOf(String.valueOf(obj));
+        }
+    }
+
+
+    global virtual Integer toInteger(Object value, Integer defaultValue) {
+		return toInteger(value, null, defaultValue, null);
+    }
+    
+    global virtual Integer toInteger(Object value, Integer min, Integer defaultValue, Integer max) {
         if (value == null) {
             value = defaultValue;
         }
         
-        if (min != null && value < min) {
-            value = min;
+        Integer intValue = Integer.valueOf(value);
+        
+        if (min != null && intValue < min) {
+            intValue = min;
         }
         
-        if (max != null && value > max) {
-            value = max;
+        if (max != null && intValue > max) {
+            intValue = max;
         }
         
-        return value;
+        return intValue;
     }
 
     global virtual String replaceVars(String value, Map<String, Object> tokens) {
@@ -460,6 +484,10 @@ global virtual class Utils {
         return obj1 != null ? obj1 : obj2;
     }
 
+    global virtual Object firstNotNull(Object obj1, Object obj2, Object obj3) {
+        return firstNotNull( firstNotNull(obj1, obj2), obj3);
+    }
+
     global virtual String firstNotBlank(String v1, String v2) {
         return String.isBlank(v1) ? v2 : v1;
     }
@@ -567,6 +595,7 @@ global virtual class Utils {
     }
 
     private static String[] UnknownClassAndMethod = new String[]{'Unknown', 'Unknown'};
+        
     @TestVisible
     private String[] getClassAndMethod(List<String> stacktraceLines, Integer lineNum) {
         try {
@@ -605,6 +634,7 @@ global virtual class Utils {
                 
             } else {
                 resp[0] = tokens[index];
+                resp[1] = 'Unknown';
             }
             
             return resp;
@@ -613,4 +643,164 @@ global virtual class Utils {
             return UnknownClassAndMethod;
         }
     }
+    
+    /**
+     * There is no good way to induce some sleep into the execution thread in Salesforce. This call simulates the sleep by doing
+     * very time conuming work. This is not the best way to do it, but it gets the job done.
+     * <p>
+     * Note that it is not a good practice to sleep during actual live thread but is useful during testing. So use this
+     * with caution.
+     */
+    global virtual void sleep(Integer milliSeconds) {
+        Long startingTime = System.now().getTime();
+        while (System.now().getTime() - startingTime < milliSeconds)  {
+            getRandomString(1000);
+        }
+    }
+
+    global virtual String getRandomString(Integer length) {
+        String randomString = String.valueOf(Math.abs(Crypto.getRandomLong()));
+        while(true) {
+            if (randomString.length() == length) {
+                break;
+            }
+
+            if (randomString.length() < length) {
+                randomString += String.valueOf(Math.abs(Crypto.getRandomLong()));
+            }
+
+            if (randomString.length() > length) {
+                randomString = randomString.substring(0, length);
+                break;
+            }
+        }
+
+        return randomString;
+    }
+	
+    /**
+     * Generates a random number between 0 (inclusive) and given upper limit (inclusive)
+     */
+    global virtual Integer getRandomInteger(Integer upper) {
+		return getRandomInteger(0, upper);
+    }
+
+    /**
+     * Generates a random number between 0 (inclusive) and 2,147,483,647 (inclusive)
+     */
+    global virtual Integer getRandomInteger() {
+		return getRandomInteger(0, 2147483647);
+    }
+
+    /**
+     * Generates a random number between lower (inclusive) and upper (inclusive)
+     */
+    global virtual Integer getRandomInteger(Integer lower, Integer upper) {
+		return Math.round(Math.random() * (upper - lower)) + lower;
+    }
+
+    global virtual String getStaticResource(String staticResourceName) {
+        List<StaticResource> srs = [select id, body from StaticResource Where Name = :staticResourceName];
+        if (srs.isEmpty()) {
+            throw new LibshareException('Static Resource ' + staticResourceName + ' is not defined.');
+        }
+        
+        String contents = srs.get(0).body.toString();
+        return contents;
+    }
+    
+    global virtual String getDurationLong(long val) {
+        return getDuration(val, durationNamesLong, ', ');
+    }
+    
+    global virtual String getDurationShort(long val) {
+        return getDuration(val, durationNameShort, ', ');
+    }
+
+    global virtual String getDurationTiny(long val) {
+        return getDuration(val, durationNameTiny, ' ');
+    }
+
+    global virtual String getDuration(long val, List<String> names, String separator) {
+		List<Integer> values = getDurationParts(val);
+        
+        System.debug('Parts are ' + values);
+        
+        String output = appendDurationName('', values, names, 0, separator);
+        output = appendDurationName(output, values, names, 1, separator);
+        output = appendDurationName(output, values, names, 2, separator);
+        output = appendDurationName(output, values, names, 3, separator);
+        output = appendDurationName(output, values, names, 4, separator);
+        output = appendDurationName(output, values, names, 5, separator);
+        output = appendDurationName(output, values, names, 6, separator);
+        
+        return output.trim();
+    }
+    
+    private String appendDurationName(String output, List<Integer> values, List<String> valueNames, Integer index, String separator) {
+        String value =  values.get(index) > 0 ? (values.get(index) + valueNames.get(index)) : '';
+        if (String.isBlank(value)) {
+            return output;
+        }
+        
+        return String.isBlank(output) ? value : output + separator + value;
+    }
+    
+    global virtual List<Integer> getDurationParts(long val) {
+        Integer ms = Integer.valueOf(Math.mod(val, MILLIS));
+        Integer s = Integer.valueOf(Math.mod(val / MILLIS, 60));
+        Integer m = Integer.valueOf(Math.mod(val / SECS, 60));
+        Integer h = Integer.valueOf(Math.mod(val / MINS, 24));
+        Integer d = Integer.valueOf(Math.mod(val / HRS, 30));
+        Integer mn = Integer.valueOf(Math.mod(val / DAYS, 12));
+        Integer y = Integer.valueOf(val / MONTHS);
+        
+        return new List<Integer>{y, mn, d, h, m, s, ms};
+    }
+    
+    global virtual CalloutException getCalloutException(String msg) {
+        CalloutException e = new CalloutException();
+        e.setMessage(msg);
+        return e;        
+    }
+     /*
+    global virtual String httpGet(String url) {
+		return HttpClient.INSTANCE.get(url);
+    }
+
+    global virtual Object httpGet(String url, System.Type cls) {
+		return HttpClient.INSTANCE.get(url, cls);
+    }
+
+    global virtual String httpPost(String url, Object body) {
+		return HttpClient.INSTANCE.post(url, body);
+    }
+
+    global virtual Object httpPost(String url, Object body, System.Type cls) {
+		return HttpClient.INSTANCE.post(url, body, cls);
+    }
+
+    global virtual String httpPatch(String url, Object body) {
+		return HttpClient.INSTANCE.patch(url, body);
+    }
+
+    global virtual Object httpPatch(String url, Object body, System.Type cls) {
+		return HttpClient.INSTANCE.patch(url, body, cls);
+    }
+
+    global virtual String httpPut(String url, Object body) {
+		return HttpClient.INSTANCE.put(url, body);
+    }
+
+    global virtual Object httpPut(String url, Object body, System.Type cls) {
+		return HttpClient.INSTANCE.put(url, body, cls);
+    }
+
+    global virtual String httpDelete(String url) {
+		return HttpClient.INSTANCE.httpDelete(url);
+    }
+
+    global virtual Object httpDelete(String url, System.Type cls) {
+		return HttpClient.INSTANCE.httpDelete(url, cls);
+    }*/
 }
