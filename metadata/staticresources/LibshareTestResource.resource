@@ -1,0 +1,1 @@
+This is Libshare Static Resource used for unit testing

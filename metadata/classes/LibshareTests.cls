@@ -18,5 +18,13 @@ public class LibshareTests {
         new UtilsTest();
         new AppLoggerTest();
         new AppLogBuilderTest();
+        
+        new FlexHttpCalloutMockTest();
+        new FlexHttpRequestMatcherTest();
+        new FlexHttpResponseProviderTest();
+        new JsonMapperTest();
+        new SettingsPostSandboxCopyHandlerTest();
+        new StopwatchTest();
+        new DbChangesTest();
     }
 }

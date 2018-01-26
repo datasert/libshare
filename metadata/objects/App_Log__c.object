@@ -43,13 +43,13 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Object used to store any kind of application logs.</description>
+    <description>Object used to store application logs managed through AppLogger</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
@@ -167,7 +167,7 @@
     <fields>
         <fullName>Record__c</fullName>
         <externalId>false</externalId>
-        <formula>If(Not(IsBlank(Record_Id__c)), HYPERLINK(&apos;/&apos; + Record_Id__c, Record_Id__c), null)</formula>
+        <formula>If(Not(IsBlank(Record_Id__c)), HYPERLINK(&apos;/&apos; + Record_Id__c, Sobject__c + &apos; (&apos; + Record_Id__c + &apos;)&apos;), null)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Record</label>
         <required>false</required>
@@ -300,6 +300,11 @@
         <columns>CREATEDBY_USER</columns>
         <columns>UPDATEDBY_USER</columns>
         <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>TODAY</value>
+        </filters>
         <label>All Created Today</label>
     </listViews>
     <listViews>
@@ -363,7 +368,50 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>App Logs</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>Module__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Action__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Message__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Record__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>App_Task_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>External_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Value1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Module__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Action__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Type__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Message__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Record__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>App_Task_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>External_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Value1__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>UPDATEDBY_USER</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Module__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Action__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Type__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Message__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Record__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>App_Task_Id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>External_Id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Value1__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>UPDATEDBY_USER</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Module__c</searchFilterFields>
+        <searchFilterFields>Action__c</searchFilterFields>
+        <searchFilterFields>Type__c</searchFilterFields>
+        <searchFilterFields>External_Id__c</searchFilterFields>
+        <searchFilterFields>Record_Id__c</searchFilterFields>
+        <searchResultsAdditionalFields>Module__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Action__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Message__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Record__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>App_Task_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>External_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Value1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

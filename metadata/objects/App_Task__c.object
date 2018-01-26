@@ -43,13 +43,13 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Indicates a unit of work that is done asynchronously. The unit of work could be associated with a object and/or record or it need not be associated with any object. This task represent status of that unit and its processing.</description>
+    <description>Object used to store the information about a task that needs to be processed later. Record Indicates a unit of work that is done synchronously/asynchronously. The unit of work could be associated with ab object and/or record or it need not be associated with any object.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
-    <enableReports>false</enableReports>
+    <enableReports>true</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
@@ -194,7 +194,7 @@
     <fields>
         <fullName>Record__c</fullName>
         <externalId>false</externalId>
-        <formula>If(Not(IsBlank(Record_Id__c)), HYPERLINK(&apos;/&apos; + Record_Id__c, Record_Id__c), null)</formula>
+        <formula>If(Not(IsBlank(Record_Id__c)), HYPERLINK(&apos;/&apos; + Record_Id__c, Sobject__c + &apos; (&apos; + Record_Id__c + &apos;)&apos;), null)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>Hyperlink to the record which this task is associated with.</inlineHelpText>
         <label>Record</label>
@@ -583,7 +583,50 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>App Tasks</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>Module__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Action__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Sub_Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Message__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Record__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>External_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Parent_Task_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Module__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Action__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Sub_Status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Message__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Record__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>External_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Parent_Task_Id__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>UPDATEDBY_USER</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Module__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Action__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Sub_Status__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Message__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Record__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>External_Id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Parent_Task_Id__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>UPDATEDBY_USER</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Module__c</searchFilterFields>
+        <searchFilterFields>Action__c</searchFilterFields>
+        <searchFilterFields>Status__c</searchFilterFields>
+        <searchFilterFields>Record_Id__c</searchFilterFields>
+        <searchFilterFields>External_Id__c</searchFilterFields>
+        <searchResultsAdditionalFields>Module__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Action__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Sub_Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Message__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Record__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>External_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Parent_Task_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>UPDATEDBY_USER</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
