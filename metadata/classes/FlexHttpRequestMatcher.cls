@@ -67,7 +67,7 @@ global class FlexHttpRequestMatcher implements HttpRequestMatcher {
     private boolean isMatches(HttpRequest req, RequestMatcherEntry entry) {
         boolean matches = isMatches(getRequestValue(req, entry.field), entry.operator, entry.value);
         if (matches) {
-            entry.currentMatches = u.increment(entry.currentMatches);
+            entry.currentMatches = u.add(entry.currentMatches, 1);
             
             if (entry.minMatches != null && entry.currentMatches < entry.minMatches) {
 				matches = false;

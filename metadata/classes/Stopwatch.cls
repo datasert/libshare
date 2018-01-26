@@ -109,10 +109,10 @@ global class Stopwatch {
         overall.name = 'Overall';
         
         for (SavedMeasure measure : savedMeasures) {
-            overall.elapsedTime = u.increment(overall.elapsedTime, measure.elapsedTime);
+            overall.elapsedTime = u.add(overall.elapsedTime, measure.elapsedTime);
             
             for (String key : measure.consumedLimits.keySet()) {
-	            overall.consumedLimits.put(key, u.increment(overall.consumedLimits.get(key), measure.consumedLimits.get(key)));
+	            overall.consumedLimits.put(key, u.add(overall.consumedLimits.get(key), measure.consumedLimits.get(key)));
             }
         }
                     

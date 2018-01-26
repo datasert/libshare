@@ -46,7 +46,7 @@ global class AppLogger {
     private void processLog(App_Log__c appLog) {
         String details = u.join(new Object[]{appLog.Details1__c, appLog.Details2__c, appLog.Details3__c, appLog.Details4__c, appLog.Details5__c});
         if (String.isNotBlank(details)) {
-            List<String> splits = u.split(u.truncateStart(details, DetailsMaxLength * DetailsFieldsCount), DetailsMaxLength);
+            List<String> splits = u.split(u.left(details, DetailsMaxLength * DetailsFieldsCount), DetailsMaxLength);
             
             for (Integer i = 0; i < DetailsFieldsCount; i++) {
                 appLog.put('Details' + (i + 1) + '__c', i < splits.size() ? splits.get(i).trim() : null);
@@ -54,7 +54,7 @@ global class AppLogger {
         }
         
         if (String.isBlank(appLog.Message__c)) {
-	       	appLog.Message__c = u.truncateEnd(details, MessageMaxLength);
+	       	appLog.Message__c = u.right(details, MessageMaxLength);
         }
     }
 

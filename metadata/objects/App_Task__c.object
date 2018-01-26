@@ -43,6 +43,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
     <description>Object used to store the information about a task that needs to be processed later. Record Indicates a unit of work that is done synchronously/asynchronously. The unit of work could be associated with ab object and/or record or it need not be associated with any object.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -55,6 +56,7 @@
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Action__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>The action this task is associated with.</inlineHelpText>
         <label>Action</label>
@@ -66,6 +68,7 @@
     </fields>
     <fields>
         <fullName>Attempts__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Indicates the number of times, this task is processed. Usually attempts will be 1. But in case of an error, task can be retried to be processed and in those cases, value could be more than 1.</inlineHelpText>
         <label>Attempts</label>
@@ -78,6 +81,7 @@
     </fields>
     <fields>
         <fullName>Delay_Until__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Indicates the time until which this task should not be processed. This can be used to delay processing between attempts.</inlineHelpText>
         <label>Delay Until</label>
@@ -87,6 +91,7 @@
     </fields>
     <fields>
         <fullName>External_Id__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Indicates any external id associated with this task</inlineHelpText>
         <label>External Id</label>
@@ -98,6 +103,7 @@
     </fields>
     <fields>
         <fullName>Input__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Any Input that is required to process this task. The format and content of this field is left to each client.</inlineHelpText>
         <label>Input</label>
@@ -108,6 +114,7 @@
     </fields>
     <fields>
         <fullName>Message__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Any applicable processing message</inlineHelpText>
         <label>Message</label>
@@ -119,6 +126,7 @@
     </fields>
     <fields>
         <fullName>Module__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>The module to which this task is associated with.</inlineHelpText>
         <label>Module</label>
@@ -130,6 +138,7 @@
     </fields>
     <fields>
         <fullName>Output__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Any output produced during processing of this task. Note that if you want to capture logs, it is better to capture in App Log instead of App Task</inlineHelpText>
         <label>Output</label>
@@ -141,6 +150,7 @@
     <fields>
         <fullName>Parent_Task_Id__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>If this task is part of a hierarchy, or is it a duplicate of another task, then this points to that task.</inlineHelpText>
         <label>Parent Task</label>
@@ -153,6 +163,7 @@
     </fields>
     <fields>
         <fullName>Record_Change_Type__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Indicates the type of source record change resulted in this task.</inlineHelpText>
         <label>Record Change Type</label>
@@ -182,6 +193,7 @@
     </fields>
     <fields>
         <fullName>Record_Id__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>If this task is associated with a particular object, then indicates the record of that object.</inlineHelpText>
         <label>Record Id</label>
@@ -193,6 +205,7 @@
     </fields>
     <fields>
         <fullName>Record__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <formula>If(Not(IsBlank(Record_Id__c)), HYPERLINK(&apos;/&apos; + Record_Id__c, Sobject__c + &apos; (&apos; + Record_Id__c + &apos;)&apos;), null)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
@@ -205,6 +218,7 @@
     </fields>
     <fields>
         <fullName>Sobject__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Sobject name to which this task is associated with.</inlineHelpText>
         <label>Sobject</label>
@@ -216,6 +230,7 @@
     </fields>
     <fields>
         <fullName>Stats__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Capture any processing statistics associated with this task. For ex., number of records inserted, updated etc.,</inlineHelpText>
         <label>Stats</label>
@@ -227,6 +242,7 @@
     </fields>
     <fields>
         <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Indicates the status of this processing of this task</inlineHelpText>
         <label>Status</label>
@@ -281,6 +297,7 @@
     </fields>
     <fields>
         <fullName>Sub_Status__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Any status applicable for module/action of this task</inlineHelpText>
         <label>Sub Status</label>
@@ -292,6 +309,7 @@
     </fields>
     <fields>
         <fullName>Value1__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <inlineHelpText>Value1-5 fields are used to capture any individual values associated with this task.</inlineHelpText>
         <label>Value1</label>
@@ -303,6 +321,7 @@
     </fields>
     <fields>
         <fullName>Value2__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Value2</label>
         <length>255</length>
@@ -313,6 +332,7 @@
     </fields>
     <fields>
         <fullName>Value3__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Value3</label>
         <length>255</length>
@@ -323,6 +343,7 @@
     </fields>
     <fields>
         <fullName>Value4__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Value4</label>
         <length>255</length>
@@ -333,6 +354,7 @@
     </fields>
     <fields>
         <fullName>Value5__c</fullName>
+        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Value5</label>
         <length>255</length>

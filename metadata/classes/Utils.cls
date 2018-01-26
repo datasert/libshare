@@ -492,28 +492,20 @@ global class Utils {
         return String.isBlank(v1) ? v2 : v1;
     }
 
-    global String truncateEnd(String value, Integer size) {
+    global String left(String value, Integer size) {
         if (value == null) {
             return null;
         }
         
-        if (value.length() <= size) {
-            return value;
-        }
-        
-        return value.substring(0, size);
+        return value.left(size);
     }
     
-    global String truncateStart(String value, Integer size) {
+    global String right(String value, Integer size) {
         if (value == null) {
             return null;
         }
         
-        if (value.length() <= size) {
-            return value;
-        }
-        
-        return value.substring(value.length() - size);
+        return value.right(size);
     }
 
     global boolean equalsIc(String value1, String value2) {
@@ -528,19 +520,11 @@ global class Utils {
         return value1.equalsIgnoreCase(value2);
     }
 
-    global Integer increment(Integer value) {
-        return increment(value, 1);
-    }
-
-    global Integer increment(Integer value, Integer incrementValue) {
+    global Integer add(Integer value, Integer incrementValue) {
         return (value == null || value == 0) ? incrementValue : value + incrementValue;
     }
 
-    global Decimal increment(Decimal value) {
-		return increment(value, 1);
-    }
-    
-    global Decimal increment(Decimal value, Integer incrementValue) {
+    global Decimal add(Decimal value, Decimal incrementValue) {
         return (value == null || value == 0.0) ? incrementValue: value + incrementValue;
     }
 

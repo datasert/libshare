@@ -313,20 +313,20 @@ public class UtilsTest {
         
     }     
     
-    testmethod public static void test_truncate() {
-    	assert.that(u.truncateEnd(null, 3)).isEqualsTo(null);
-    	assert.that(u.truncateEnd('', 3)).isEqualsTo('');
-    	assert.that(u.truncateEnd('a', 3)).isEqualsTo('a');
-    	assert.that(u.truncateEnd('ab', 3)).isEqualsTo('ab');
-    	assert.that(u.truncateEnd('abc', 3)).isEqualsTo('abc');
-    	assert.that(u.truncateEnd('abcd', 3)).isEqualsTo('abc');
+    testmethod public static void test_left() {
+    	assert.that(u.left(null, 3)).isEqualsTo(null);
+    	assert.that(u.left('', 3)).isEqualsTo('');
+    	assert.that(u.left('a', 3)).isEqualsTo('a');
+    	assert.that(u.left('ab', 3)).isEqualsTo('ab');
+    	assert.that(u.left('abc', 3)).isEqualsTo('abc');
+    	assert.that(u.left('abcd', 3)).isEqualsTo('abc');
 
-        assert.that(u.truncateStart(null, 3)).isEqualsTo(null);
-    	assert.that(u.truncateStart('', 3)).isEqualsTo('');
-    	assert.that(u.truncateStart('a', 3)).isEqualsTo('a');
-    	assert.that(u.truncateStart('ab', 3)).isEqualsTo('ab');
-    	assert.that(u.truncateStart('abc', 3)).isEqualsTo('abc');
-    	assert.that(u.truncateStart('abcd', 3)).isEqualsTo('bcd');
+        assert.that(u.right(null, 3)).isEqualsTo(null);
+    	assert.that(u.right('', 3)).isEqualsTo('');
+    	assert.that(u.right('a', 3)).isEqualsTo('a');
+    	assert.that(u.right('ab', 3)).isEqualsTo('ab');
+    	assert.that(u.right('abc', 3)).isEqualsTo('abc');
+    	assert.that(u.right('abcd', 3)).isEqualsTo('bcd');
     }
 
     testmethod public static void test_equalsIc() {
@@ -337,13 +337,13 @@ public class UtilsTest {
         System.assertEquals(false, u.equalsIc('Value', ' value '));        
     }     
 
-    testmethod public static void test_increment() {
-        System.assertEquals(1, u.increment((Decimal) null));
-        System.assertEquals(1, u.increment(0.0));
-        System.assertEquals(3, u.increment(2.0));
-        System.assertEquals(1, u.increment((Integer) null));
-        System.assertEquals(1, u.increment(0));
-        System.assertEquals(3, u.increment(2));
+    testmethod public static void test_add() {
+        System.assertEquals(1, u.add((Decimal) null, 1));
+        System.assertEquals(1, u.add(0.0, 1.0));
+        System.assertEquals(3, u.add(2.0, 1.0));
+        System.assertEquals(1, u.add((Integer) null, 1));
+        System.assertEquals(1, u.add(0, 1));
+        System.assertEquals(3, u.add(2, 1));
     }
     
 	testmethod public static void test_getSobject() {
