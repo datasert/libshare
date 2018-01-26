@@ -47,7 +47,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isNotEqualsTo(Object expected) {
-        return common_isNotEqualsTo(expected, format('Expected: different value than {0}', actual));
+        return common_isNotEqualsTo(expected, format('Expected: <not equals to> {0}', actual));
     }
 
     public virtual BaseAssert common_isNotEqualsTo(Object expected, String msg) {
@@ -80,7 +80,7 @@ public virtual class BaseAssert {
     }
 
     public virtual BaseAssert common_isNotSameAs(Object expected) {
-        return common_isNotSameAs(expected, format('Expected: not same as {0}, Actual: same as {0}', expected));
+        return common_isNotSameAs(expected, format('Expected: <not same as> {0}, Actual: <same>', expected));
     }
     
     public virtual BaseAssert common_isNotSameAs(Object expected, String msg) {
@@ -125,8 +125,8 @@ public virtual class BaseAssert {
         return String.format(message, stringArgs);
     }
 
-    public void otherIsNotNull(Object other) {
-        assert(other != null, 'Expected that other parameter passed to assert with actual to be not [null] but is');
+    public void expectedIsNotNull(Object expected) {
+        assert(expected != null, 'Expected value must not be null');
   	}
 
     public void evaluate() {

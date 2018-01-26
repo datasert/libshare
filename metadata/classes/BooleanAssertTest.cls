@@ -10,14 +10,14 @@ public class BooleanAssertTest {
 	        assert.that(true).isNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [true] to be [null] but is not');
+            assert.that(e).hasMessage('Expected: <null>, Actual: <not null> true');
         }
         
         try {
 	        assert.that(false).isNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [false] to be [null] but is not');
+            assert.that(e).hasMessage('Expected: <null>, Actual: <not null> false');
         }
 
         assert.that((Boolean) null).isNull(customMessage);
@@ -44,7 +44,7 @@ public class BooleanAssertTest {
 	        assert.that((Boolean) null).isNotNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
         
         assert.that(true).isNotNull(customMessage);
@@ -63,14 +63,14 @@ public class BooleanAssertTest {
 	        assert.that((Boolean) null).isTrue();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be equals to [true] but is not');
+            assert.that(e).hasMessage('Expected: true, Actual: null');
         }
         
         try {
 	        assert.that(false).isTrue();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [false] to be equals to [true] but is not');
+            assert.that(e).hasMessage('Expected: true, Actual: false');
         }
 
         assert.that(true).isTrue(customMessage);
@@ -96,14 +96,14 @@ public class BooleanAssertTest {
 	        assert.that((Boolean) null).isFalse();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be equals to [false] but is not');
+            assert.that(e).hasMessage('Expected: false, Actual: null');
         }
         
         try {
 	        assert.that(true).isFalse();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [true] to be equals to [false] but is not');
+            assert.that(e).hasMessage('Expected: false, Actual: true');
         }
 
         assert.that(false).isFalse(customMessage);
@@ -130,14 +130,14 @@ public class BooleanAssertTest {
 	        assert.that((Boolean) null).isEqualsTo(true);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be equals to [true] but is not');
+            assert.that(e).hasMessage('Expected: true, Actual: null');
         }
         
         try {
 	        assert.that(false).isEqualsTo(true);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [false] to be equals to [true] but is not');
+            assert.that(e).hasMessage('Expected: true, Actual: false');
         }
 
         assert.that(true).isEqualsTo(true, customMessage);
@@ -165,7 +165,7 @@ public class BooleanAssertTest {
 	        assert.that(true).isNotEqualsTo(true);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [true] to be not equals to [true] but is');
+            assert.that(e).hasMessage('Expected: <not equals to> true');
         }
 
         assert.that((Boolean) null).isNotEqualsTo(true, customMessage);

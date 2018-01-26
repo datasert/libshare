@@ -13,7 +13,7 @@ public class DateAssertTest {
 	        assert.that(jan1st).isNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] to be [null] but is not');
+            assert.that(e).hasMessage('Expected: <null>, Actual: <not null> 2017-01-01 00:00:00');
         }
         
         assert.that((Date) null).isNull(customMessage);
@@ -32,7 +32,7 @@ public class DateAssertTest {
 	        assert.that((Date) null).isNotNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
         
         assert.that(jan1st).isNotNull(customMessage);
@@ -53,7 +53,7 @@ public class DateAssertTest {
 	        assert.that(jan1st).isEqualsTo(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] to be equals to [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: 2017-01-02 00:00:00, Actual: 2017-01-01 00:00:00');
         }
         
         assert.that(jan1st).isEqualsTo(jan1st, customMessage);
@@ -76,7 +76,7 @@ public class DateAssertTest {
 	        assert.that(jan1st).isNotEqualsTo(jan1st);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] to be not equals to [2017-01-01 00:00:00] but is');
+            assert.that(e).hasMessage('Expected: <not equals to> 2017-01-01 00:00:00');
         }
         
         assert.that(jan1st).isNotEqualsTo('2017-01-02', customMessage);
@@ -100,7 +100,7 @@ public class DateAssertTest {
 	        assert.that(jan1st).isSameAs(Date.newInstance(2017, 01, 01));
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] to be same as [2017-01-01 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: 2017-01-01 00:00:00, Actual: 2017-01-01 00:00:00');
         }
         
         assert.that(dt).isSameAs(dt, customMessage);
@@ -121,7 +121,7 @@ public class DateAssertTest {
 	        assert.that(dt).isNotSameAs(dt);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] to be not same as [2017-01-01 00:00:00] but is');
+            assert.that(e).hasMessage('Expected: <not same as> 2017-01-01 00:00:00, Actual: <same>');
         }
         
         assert.that(jan1st).isNotSameAs(Date.newInstance(2017, 01, 01), customMessage);
@@ -143,14 +143,14 @@ public class DateAssertTest {
 	        assert.that(jan2nd).isAfter(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-02 00:00:00] is after [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <after> 2017-01-02 00:00:00, Actual: 2017-01-02 00:00:00');
         }
         
         try {
 	        assert.that(jan1st).isAfter(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] is after [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <after> 2017-01-02 00:00:00, Actual: 2017-01-01 00:00:00');
         }
 
         assert.that(jan2nd).isAfter('2017-01-01', customMessage);
@@ -183,7 +183,7 @@ public class DateAssertTest {
 	        assert.that(jan1st).isOnOrAfter(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-01 00:00:00] is on or after [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <on or after> 2017-01-02 00:00:00, Actual: 2017-01-01 00:00:00');
         }
 
         assert.that(jan2nd).isOnOrAfter('2017-01-01', customMessage);
@@ -209,14 +209,14 @@ public class DateAssertTest {
 	        assert.that(jan2nd).isBefore(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-02 00:00:00] is before [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <before> 2017-01-02 00:00:00, Actual: 2017-01-02 00:00:00');
         }
         
         try {
 	        assert.that(jan2nd).isBefore(jan1st);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-02 00:00:00] is before [2017-01-01 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <before> 2017-01-01 00:00:00, Actual: 2017-01-02 00:00:00');
         }
 
         assert.that(jan1st).isBefore(jan2nd, customMessage);
@@ -248,7 +248,7 @@ public class DateAssertTest {
 	        assert.that(jan3rd).isOnOrBefore(jan2nd);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [2017-01-03 00:00:00] is on or before [2017-01-02 00:00:00] but is not');
+            assert.that(e).hasMessage('Expected: <on or before> 2017-01-02 00:00:00, Actual: 2017-01-03 00:00:00');
         }
 
         assert.that(jan2nd).isOnOrBefore(jan2nd, customMessage);

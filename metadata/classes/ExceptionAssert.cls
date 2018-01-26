@@ -8,18 +8,18 @@ global class ExceptionAssert extends BaseAssert {
     }
     
     global ExceptionAssert hasMessage(String message) {
-        return hasMessage(message, format('Expected that exception message [{0}] to be equals to [{1}] but is not', actual.getMessage(), message));
+        return hasMessage(message, format('Expected: <exception with message> {0}, Actual: {1}', message, actual.getMessage()));
     }
     
     global ExceptionAssert hasMessage(String message, String failMsg) {
-        otherIsNotNull(message);
+        expectedIsNotNull(message);
         assert(actual.getMessage() == message, failMsg);
         
         return this;	
     }
 
     global ExceptionAssert hasCause() {
-        return hasCause(format('Expected that actual [{0}] has a cause but does not', actual));
+        return hasCause(format('Expected: <exception with a cause>, Actual: <without any cause>', actual));
     }
     
     global ExceptionAssert hasCause(String msg) {
@@ -28,7 +28,7 @@ global class ExceptionAssert extends BaseAssert {
     }
     
     global ExceptionAssert hasNoCause() {
-        return hasNoCause(format('Expected that actual [{0}] has no cause but has', actual));
+        return hasNoCause(format('Expected: <exception without any cause>, Actual: <has cause>', actual));
     }
     
     global ExceptionAssert hasNoCause(String msg) {

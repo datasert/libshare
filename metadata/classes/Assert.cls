@@ -60,12 +60,12 @@ global class Assert {
     }
 
     global Assert expectedException(System.Type cls) {
-        asserter.assert(false, String.format('Expected an exception of type [{0}] but none was thrown', new List<String>{cls.toString()}));
+        asserter.assert(false, String.format('Expected: <exception of type> {0}, Actual: <not thrown>', new List<String>{cls.toString()}));
         return this;
     }
     
     global Assert expectedException() {
-        asserter.assert(false, 'Expected an exception but none was thrown');
+        asserter.assert(false, 'Expected: <an exception>, Actual: <not thrown>');
         return this;
     }
     global Assert expectedException(String msg) {

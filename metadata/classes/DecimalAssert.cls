@@ -91,56 +91,56 @@ global class DecimalAssert extends BaseAssert {
     }
 
     global DecimalAssert isLessThan(Decimal expected) {
-        return isLessThan(expected, format('Expected that actual [{0}] to be less than [{1}] but is not', actual, expected));
+        return isLessThan(expected, format('Expected: <less than> {0}, Actual: {1}', expected, actual));
     }
     
-    global DecimalAssert isLessThan(Decimal other, String msg) {
-        assert(actual < other, msg);
+    global DecimalAssert isLessThan(Decimal expected, String msg) {
+        assert(actual < expected, msg);
         return this;
     }
 
     global DecimalAssert isLessThanOrEqualsTo(Decimal expected) {
-        return isLessThanOrEqualsTo(expected, format('Expected that actual [{0}] to be less than or equals to [{1}] but is not', actual, expected));
+        return isLessThanOrEqualsTo(expected, format('Expected: <less than or equals to> {0}, Actual: {1}', expected, actual));
     }
     
-    global DecimalAssert isLessThanOrEqualsTo(Decimal other, String msg) {
-        assert(actual <= other, msg);
+    global DecimalAssert isLessThanOrEqualsTo(Decimal expected, String msg) {
+        assert(actual <= expected, msg);
         return this;
     }
 
-    global DecimalAssert isGreaterThan(Decimal other) {
-        return isGreaterThan(other, format('Expected that actual [{0}] to be greater than [{1}] but is not', actual, other));
+    global DecimalAssert isGreaterThan(Decimal expected) {
+        return isGreaterThan(expected, format('Expected: <greater than> {0}, Actual: {1}', expected, actual));
     }
     
-    global DecimalAssert isGreaterThan(Decimal other, String msg) {
-        assert(actual > other, msg);
+    global DecimalAssert isGreaterThan(Decimal expected, String msg) {
+        assert(actual > expected, msg);
         return this;
     }
 
-    global DecimalAssert isGreaterThanOrEqualsTo(Decimal other) {
-        return isGreaterThanOrEqualsTo(other, format('Expected that actual [{0}] to be greater than or equals to [{1}] but is not', actual, other));
+    global DecimalAssert isGreaterThanOrEqualsTo(Decimal expected) {
+        return isGreaterThanOrEqualsTo(expected, format('Expected: <greater than or equals to> {0}, Actual: {1}', expected, actual));
     }
     
-    global DecimalAssert isGreaterThanOrEqualsTo(Decimal other, String msg) {
-        assert(actual >= other, msg);
+    global DecimalAssert isGreaterThanOrEqualsTo(Decimal expected, String msg) {
+        assert(actual >= expected, msg);
         return this;
     }
 
-    global DecimalAssert isBetweenInclusive(Decimal start, Decimal endValue) {
-        return isBetweenInclusive(start, endValue, format('Expected that actual [{0}] to be between (inclusive) [{1}] and [{2}] but is not', actual, start, endValue));
+    global DecimalAssert isBetweenInclusive(Decimal startValue, Decimal endValue) {
+        return isBetweenInclusive(startValue, endValue, format('Expected: <between (inclusive)> {0} and {1}, Actual: {2}', startValue, endValue, actual));
     }
     
-    global DecimalAssert isBetweenInclusive(Decimal start, Decimal endValue, String msg) {
-        assert(actual >= start && actual <= endValue, msg);
+    global DecimalAssert isBetweenInclusive(Decimal startValue, Decimal endValue, String msg) {
+        assert(actual >= startValue && actual <= endValue, msg);
         return this;
     }
 
-    global DecimalAssert isBetween(Decimal start, Decimal endValue) {
-        return isBetween(start, endValue, format('Expected that actual [{0}] to be between [{1}] and [{2}] but is not', actual, start, endValue));
+    global DecimalAssert isBetween(Decimal startValue, Decimal endValue) {
+        return isBetween(startValue, endValue, format('Expected: <between> {0} and {1}, Actual: {2}', startValue, endValue, actual));
     }
     
-    global DecimalAssert isBetween(Decimal start, Decimal endValue, String msg) {
-        assert(actual > start && actual < endValue, msg);
+    global DecimalAssert isBetween(Decimal startValue, Decimal endValue, String msg) {
+        assert(actual > startValue && actual < endValue, msg);
         return this;
     }
 
@@ -152,7 +152,7 @@ global class DecimalAssert extends BaseAssert {
         try {
             return Decimal.valueOf(String.valueOf(expected));
         } catch (Exception e) {
-            throw assertFalse(format('The expected value [{0}] must be a valid Decimal', expected));
+            throw assertFalse(format('Expected {0} must be a valid Decimal', expected));
         }
     }
 }

@@ -45,7 +45,7 @@ public class AssertTest {
             assert.expectedException();
             System.assert(false, 'Expected exception');
         } catch (AssertException e) {
-            System.assertEquals('Expected an exception but none was thrown', e.getMessage());
+            System.assertEquals('Expected: <an exception>, Actual: <not thrown>', e.getMessage());
         }
 
         try {
@@ -59,7 +59,7 @@ public class AssertTest {
             assert.expectedException(AssertException.class);
             System.assert(false, 'Expected exception');
         } catch (AssertException e) {
-            System.assertEquals('Expected an exception of type [lib.AssertException] but none was thrown', e.getMessage());
+            System.assertEquals('Expected: <exception of type> lib.AssertException, Actual: <not thrown>', e.getMessage());
         }
     }
     

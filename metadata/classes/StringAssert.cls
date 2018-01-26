@@ -206,129 +206,129 @@ global class StringAssert extends BaseAssert {
         return this;
     }
 
-    global StringAssert hasSameSizeAs(String other) {
-        if (actual == null && other == null) {
+    global StringAssert hasSameSizeAs(String expected) {
+        if (actual == null && expected == null) {
             return this;
         }
         
-        if (actual == null || other == null || actual.length() != other.length()) {
-            assert(false, format('Expected: <size {0}>, Actual: <size {1}>', other, actual));
+        if (actual == null || expected == null || actual.length() != expected.length()) {
+            assert(false, format('Expected: <size {0}>, Actual: <size {1}>', expected, actual));
         }
         return this;
     }
 
-    global StringAssert hasSameSizeAs(String other, String msg) {
-        if (actual == null && other == null) {
+    global StringAssert hasSameSizeAs(String expected, String msg) {
+        if (actual == null && expected == null) {
             return this;
         }
         
-        if (actual == null || other == null || actual.length() != other.length()) {
+        if (actual == null || expected == null || actual.length() != expected.length()) {
 	        assert(false, msg);
         }
         return this;
     }
     
-    global StringAssert startsWith(String other) {
-        return startsWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <starts with> {0}, Actual: {1}', other, actual));
+    global StringAssert startsWith(String expected) {
+        return startsWith(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <starts with> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert startsWith(String other, String msg) {
+    global StringAssert startsWith(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(getActual().startsWith(getExpected(other)), msg);
+        assert(getActual().startsWith(getExpected(expected)), msg);
         return this;
     }
 
-    global StringAssert doesNotStartWith(String other) {
-        return doesNotStartWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not starts with> {0}, Actual: {1}', other, actual));
+    global StringAssert doesNotStartWith(String expected) {
+        return doesNotStartWith(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <not starts with> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert doesNotStartWith(String other, String msg) {
+    global StringAssert doesNotStartWith(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(!getActual().startsWith(getExpected(other)), msg);
+        assert(!getActual().startsWith(getExpected(expected)), msg);
         return this;
     }
 
-    global StringAssert endsWith(String other) {
-        return endsWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <ends with> {0}, Actual: {1}', other, actual));
+    global StringAssert endsWith(String expected) {
+        return endsWith(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <ends with> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert endsWith(String other, String msg) {
+    global StringAssert endsWith(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(getActual().endsWith(getExpected(other)), msg);
+        assert(getActual().endsWith(getExpected(expected)), msg);
         return this;
     }
 
-    global StringAssert doesNotEndWith(String other) {
-        return doesNotEndWith(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not ends with> {0}, Actual: {1}', other, actual));
+    global StringAssert doesNotEndWith(String expected) {
+        return doesNotEndWith(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <not ends with> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert doesNotEndWith(String other, String msg) {
+    global StringAssert doesNotEndWith(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(!getActual().endsWith(getExpected(other)), msg);
+        assert(!getActual().endsWith(getExpected(expected)), msg);
         return this;
     }
     
-    global StringAssert contains(String other) {
-        return contains(other, format('Expected' + getIgnoreCaseMessagePart() + ': <contains> {0}, Actual: {1}', other, actual));
+    global StringAssert contains(String expected) {
+        return contains(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <contains> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert contains(String other, String msg) {
+    global StringAssert contains(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(getActual().contains(getExpected(other)), msg);
+        assert(getActual().contains(getExpected(expected)), msg);
         return this;
     }
 
-    global StringAssert doesNotContain(String other) {
-        return doesNotContain(other, format('Expected' + getIgnoreCaseMessagePart() + ': <not contains> {0}, Actual: {1}', other, actual));
+    global StringAssert doesNotContain(String expected) {
+        return doesNotContain(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <not contains> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert doesNotContain(String other, String msg) {
+    global StringAssert doesNotContain(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(!getActual().contains(getExpected(other)), msg);
+        assert(!getActual().contains(getExpected(expected)), msg);
         return this;
     }
 
-    global StringAssert matches(String otherRegex) {
-        return matches(otherRegex, format('Expected: <matches regex> {0}, Actual: <not matches regex> {1}', otherRegex, actual));
+    global StringAssert matches(String expectedRegex) {
+        return matches(expectedRegex, format('Expected: <matches regex> {0}, Actual: <not matches regex> {1}', expectedRegex, actual));
     }
-    global StringAssert matches(String otherRegex, String msg) {
+    global StringAssert matches(String expectedRegex, String msg) {
         isNotNull();
-        otherIsNotNull(otherRegex);
+        expectedIsNotNull(expectedRegex);
         
-        assert(Pattern.matches(otherRegex, actual), msg);
+        assert(Pattern.matches(expectedRegex, actual), msg);
         return this;
     }
 
-    global StringAssert doesNotMatch(String otherRegex) {
-        return doesNotMatch(otherRegex, format('Expected: <not matches regex> {0}, Actual: <matches regex> {1}', otherRegex, actual));
+    global StringAssert doesNotMatch(String expectedRegex) {
+        return doesNotMatch(expectedRegex, format('Expected: <not matches regex> {0}, Actual: <matches regex> {1}', expectedRegex, actual));
     }
-    global StringAssert doesNotMatch(String otherRegex, String msg) {
+    global StringAssert doesNotMatch(String expectedRegex, String msg) {
         isNotNull();
-        otherIsNotNull(otherRegex);
+        expectedIsNotNull(expectedRegex);
         
-        assert(!Pattern.matches(otherRegex, actual), msg);
+        assert(!Pattern.matches(expectedRegex, actual), msg);
         return this;
     }
 
-    global StringAssert isSubstringOf(String other) {
-        return isSubstringOf(other, format('Expected' + getIgnoreCaseMessagePart() + ': <substring of> {0}, Actual: {1}', other, actual));
+    global StringAssert isSubstringOf(String expected) {
+        return isSubstringOf(expected, format('Expected' + getIgnoreCaseMessagePart() + ': <substring of> {0}, Actual: {1}', expected, actual));
     }
-    global StringAssert isSubstringOf(String other, String msg) {
+    global StringAssert isSubstringOf(String expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
+        expectedIsNotNull(expected);
         
-        assert(getExpected(other).indexOf(getActual()) >= 0, msg);
+        assert(getExpected(expected).indexOf(getActual()) >= 0, msg);
         return this;
     }
     
     global StringAssert isId() {
-        return isId(format('Expected that actua [{0}] to be a valid Id but is not', actual));
+        return isId(format('Expected: <valid id>, Actual: <not valid id> {0}', actual));
     }
     
     global StringAssert isId(String msg) {
@@ -346,7 +346,7 @@ global class StringAssert extends BaseAssert {
         try {
             value = Integer.valueOf(actual);
         } catch (Exception e) {
-            assert(false, format('Expected that actual [{0}] to be Integer but is not', actual));
+            assert(false, format('Expected: <valid integer>, Actual: <not valid integer> {0}', actual));
         }
         return new IntegerAssert(asserter, value);
     }
@@ -365,7 +365,7 @@ global class StringAssert extends BaseAssert {
         try {
             value = Boolean.valueOf(actual);
         } catch (Exception e) {
-            assert(false, format('Expected that actual [{0}] to be Boolean but is not', actual));
+            assert(false, format('Expected: <valid boolean>, Actual: <not valid boolean> {0}', actual));
         }
         return Sf.assert.that(value);
     }
@@ -375,7 +375,7 @@ global class StringAssert extends BaseAssert {
         try {
             value = Date.valueOf(actual);
         } catch (Exception e) {
-            assert(false, format('Expected that actual [{0}] to be Date but is not', actual));
+            assert(false, format('Expected: <valid date>, Actual: <not valid date> {0}', actual));
         }
         return Sf.assert.that(value);
     }
@@ -385,7 +385,7 @@ global class StringAssert extends BaseAssert {
         try {
             value = Datetime.valueOf(actual);
         } catch (Exception e) {
-            assert(false, format('Expected that actual [{0}] to be Datetime but is not', actual));
+            assert(false, format('Expected: <valid daettime>, Actual: <not valid datetime> {0}', actual));
         }
         return Sf.assert.that(value);
     }

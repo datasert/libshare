@@ -33,7 +33,7 @@ public class StringAssertTest {
 	        assert.that('foo').isNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be [null] but is not');
+            assert.that(e).hasMessage('Expected: <null>, Actual: <not null> foo');
         }
 
         assert.that((String) null).isNull(customMessage);
@@ -56,7 +56,7 @@ public class StringAssertTest {
 	        assert.that((String) null).isNotNull();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         assert.that('foo').isNotNull(customMessage);
@@ -82,20 +82,20 @@ public class StringAssertTest {
 	        assert.that('foo').isEqualsTo('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be equals to [Foo] but is not');
+            assert.that(e).hasMessage('Expected: Foo, Actual: foo');
         }
 
         try {
 	        assert.that('foo').isEqualsTo(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be equals to [null] but is not');
+            assert.that(e).hasMessage('Expected: null, Actual: foo');
         }
         try {
 	        assert.that((String) null).isEqualsTo('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be equals to [foo] but is not');
+            assert.that(e).hasMessage('Expected: foo, Actual: null');
         }
 
         assert.that('foo').isEqualsTo('foo', customMessage);
@@ -135,13 +135,13 @@ public class StringAssertTest {
 	        assert.that('foo').ignoreCase().isEqualsTo(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be equals to [null] (ignoring case) but is not');
+            assert.that(e).hasMessage('Expected (ignoring case): null, Actual: foo');
         }
         try {
 	        assert.that((String) null).ignoreCase().isEqualsTo('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be equals to [foo] (ignoring case) but is not');
+            assert.that(e).hasMessage('Expected (ignoring case): foo, Actual: null');
         }
 
         assert.that('foo').ignoreCase().isEqualsTo('foo', customMessage);
@@ -176,28 +176,28 @@ public class StringAssertTest {
 	        assert.that('foo').isNotEqualsTo('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be not equals to [Foo] but is');
+            assert.that(e).hasMessage('Expected: not equals to foo, Actual: same');
         }
         
         try {
 	        assert.that((String) null).isNotEqualsTo(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be not equals to [null] but is');
+            assert.that(e).hasMessage('Expected: not equals to null, Actual: same');
         }
         
         try {
 	        assert.that(' ').isNotEqualsTo(' ');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to be not equals to [ ] but is');
+            assert.that(e).hasMessage('Expected: not equals to  , Actual: same');
         }
 
         try {
 	        assert.that('').isNotEqualsTo('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to be not equals to [] but is');
+            assert.that(e).hasMessage('Expected: not equals to , Actual: same');
         }
 
         assert.that('foo').isNotEqualsTo('Foo', customMessage);
@@ -246,35 +246,35 @@ public class StringAssertTest {
 	        assert.that('foo').ignoreCase().isNotEqualsTo('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be not equals to [Foo] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): not equals to Foo, Actual: same');
         }
 
         try {
 	        assert.that('foo').ignoreCase().isNotEqualsTo('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be not equals to [Foo] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): not equals to foo, Actual: same');
         }
         
         try {
 	        assert.that((String) null).ignoreCase().isNotEqualsTo(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be not equals to [null] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): not equals to null, Actual: same');
         }
         
         try {
 	        assert.that(' ').ignoreCase().isNotEqualsTo(' ');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to be not equals to [ ] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): not equals to  , Actual: same');
         }
 
         try {
 	        assert.that('').ignoreCase().isNotEqualsTo('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to be not equals to [] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): not equals to , Actual: same');
         }
     }    
     
@@ -285,7 +285,7 @@ public class StringAssertTest {
 	        assert.that('foo').isSameAs('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be same as [Foo] but is not');
+            assert.that(e).hasMessage('Expected: Foo, Actual: foo');
         }
 
         try {
@@ -293,7 +293,7 @@ public class StringAssertTest {
 	        assert.that('foo').isSameAs(' foo '.trim());
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be same as [foo] but is not');
+            assert.that(e).hasMessage('Expected: foo, Actual: foo');
         }
 
         assert.that('foo').isSameAs('foo', customMessage);
@@ -324,7 +324,7 @@ public class StringAssertTest {
 	        assert.that('foo').isNotSameAs('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be not same as [foo] but is');
+            assert.that(e).hasMessage('Expected: <not same as> foo, Actual: <same>');
         }
 
         assert.that((String) null).isNotSameAs('Foo', customMessage);
@@ -348,7 +348,7 @@ public class StringAssertTest {
 	        assert.that(' ').isNullOrEmpty();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to be either null or empty but is not');
+            assert.that(e).hasMessage('Expected: <null or empty>, Actual:  ');
         }
 
         assert.that((String) null).isNullOrEmpty(customMessage);
@@ -369,14 +369,14 @@ public class StringAssertTest {
 	        assert.that((String) null).isEmpty();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be empty but is not');
+            assert.that(e).hasMessage('Expected: <empty>, Actual: null');
         }
 
         try {
 	        assert.that(' ').isEmpty();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to be empty but is not');
+            assert.that(e).hasMessage('Expected: <empty>, Actual:  ');
         }
 
         assert.that('').isEmpty(customMessage);
@@ -407,7 +407,7 @@ public class StringAssertTest {
         	assert.that('').isNotEmpty();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to be not empty but is');
+            assert.that(e).hasMessage('Expected: <not empty>, Actual: empty');
         }
 
 	    assert.that((String) null).isNotEmpty(customMessage);
@@ -432,7 +432,7 @@ public class StringAssertTest {
 	        assert.that('foo').isNullOrBlank();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be either null or blank but is not');
+            assert.that(e).hasMessage('Expected: <not null or blank>, Actual: foo');
         }
 
         assert.that((String) null).isNullOrBlank(customMessage);
@@ -455,14 +455,14 @@ public class StringAssertTest {
 	        assert.that((String) null).isBlank();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to be blank but is not');
+            assert.that(e).hasMessage('Expected: <blank>, Actual: null');
         }
 
         try {
 	        assert.that('foo').isBlank();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to be blank but is not');
+            assert.that(e).hasMessage('Expected: <blank>, Actual: foo');
         }
 
         assert.that('').isBlank(customMessage);
@@ -491,14 +491,14 @@ public class StringAssertTest {
 		    assert.that(' ').isNotBlank();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to be not blank but is');
+            assert.that(e).hasMessage('Expected: <not blank>, Actual:  ');
         }
 
         try {
         	assert.that('').isNotBlank();
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to be not blank but is');
+            assert.that(e).hasMessage('Expected: <not blank>, Actual: ');
         }
 
 	    assert.that((String) null).isNotBlank(customMessage);
@@ -529,14 +529,14 @@ public class StringAssertTest {
 		    assert.that((String) null).hasSize(0);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 		    assert.that('bar').hasSize(1);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [bar] to have size [1] but it has [3]');
+            assert.that(e).hasMessage('Expected: <size 1>, Actual: <size 3> bar');
         }
 
         assert.that(' ').hasSize(1, customMessage);
@@ -547,7 +547,7 @@ public class StringAssertTest {
 		    assert.that((String) null).hasSize(0, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
         
         try {
@@ -567,14 +567,14 @@ public class StringAssertTest {
 		    assert.that((String) null).hasLineCount(0);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 		    assert.that('bar').hasLineCount(2);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [bar] to have [2] lines but it has [1]');
+            assert.that(e).hasMessage('Expected: <2 lines>, Actual: <1 lines> bar');
         }
 
 	    assert.that(' ').hasLineCount(1, customMessage);
@@ -585,7 +585,7 @@ public class StringAssertTest {
 		    assert.that((String) null).hasLineCount(0, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
@@ -606,21 +606,21 @@ public class StringAssertTest {
 		    assert.that('foo').hasSameSizeAs('alice');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to have same size as [alice] but is not');
+            assert.that(e).hasMessage('Expected: <size alice>, Actual: <size foo>');
         }
 
         try {
 		    assert.that((String) null).hasSameSizeAs('alice');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [null] to have same size as [alice] but is not');
+            assert.that(e).hasMessage('Expected: <size alice>, Actual: <size null>');
         }
 
         try {
 		    assert.that('alice').hasSameSizeAs(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [alice] to have same size as [null] but is not');
+            assert.that(e).hasMessage('Expected: <size null>, Actual: <size alice>');
         }
         
         assert.that(' ').hasSameSizeAs(' ', customMessage);
@@ -659,28 +659,28 @@ public class StringAssertTest {
 	        assert.that((String) null).startsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').startsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').startsWith('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to start with [Foo] but is not');
+            assert.that(e).hasMessage('Expected: <starts with> Foo, Actual: foo');
         }
 
         try {
 	        assert.that('').startsWith(' ');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to start with [ ] but is not');
+            assert.that(e).hasMessage('Expected: <starts with>  , Actual: ');
         }
 
 
@@ -692,14 +692,14 @@ public class StringAssertTest {
 	        assert.that((String) null).startsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').startsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -725,35 +725,35 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotStartWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').startsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').doesNotStartWith('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not start with [foo] but is');
+            assert.that(e).hasMessage('Expected: <not starts with> foo, Actual: foo');
         }
 
         try {
 	        assert.that(' ').doesNotStartWith('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to not start with [] but is');
+            assert.that(e).hasMessage('Expected: <not starts with> , Actual:  ');
         }
 
         try {
 	        assert.that('Hello World').doesNotStartWith('Hello');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Hello World] to not start with [Hello] but is');
+            assert.that(e).hasMessage('Expected: <not starts with> Hello, Actual: Hello World');
         }
 
         assert.that('foo').doesNotStartWith('Foo', customMessage);
@@ -763,14 +763,14 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotStartWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').startsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -804,28 +804,28 @@ public class StringAssertTest {
 	        assert.that((String) null).endsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').endsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').endsWith('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to end with [Foo] but is not');
+            assert.that(e).hasMessage('Expected: <ends with> Foo, Actual: foo');
         }
 
         try {
 	        assert.that('').endsWith(' ');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to end with [ ] but is not');
+            assert.that(e).hasMessage('Expected: <ends with>  , Actual: ');
         }
 
 
@@ -837,14 +837,14 @@ public class StringAssertTest {
 	        assert.that((String) null).endsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').endsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -873,28 +873,28 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().endsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().endsWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').ignoreCase().endsWith('Bar');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to end with [Bar] (ignoring case) but is not');
+            assert.that(e).hasMessage('Expected (ignoring case): <ends with> Bar, Actual: foo');
         }
 
         try {
 	        assert.that('').ignoreCase().endsWith(' ');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [] to end with [ ] (ignoring case) but is not');
+            assert.that(e).hasMessage('Expected (ignoring case): <ends with>  , Actual: ');
         }
 
         assert.that('foo').ignoreCase().endsWith('Foo', customMessage);
@@ -905,14 +905,14 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().endsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().endsWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -939,35 +939,35 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotEndWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').doesNotEndWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').doesNotEndWith('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not end with [foo] but is');
+            assert.that(e).hasMessage('Expected: <not ends with> foo, Actual: foo');
         }
 
         try {
 	        assert.that(' ').doesNotEndWith('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to not end with [] but is');
+            assert.that(e).hasMessage('Expected: <not ends with> , Actual:  ');
         }
 
         try {
 	        assert.that('Hello World').doesNotEndWith('World');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Hello World] to not end with [World] but is');
+            assert.that(e).hasMessage('Expected: <not ends with> World, Actual: Hello World');
         }
 
         assert.that('foo').doesNotEndWith('Foo', customMessage);
@@ -978,14 +978,14 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotEndWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').doesNotEndWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -1015,7 +1015,7 @@ public class StringAssertTest {
 	        assert.that('foo').ignoreCase().doesNotEndWith('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not end with [Foo] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not ends with> Foo, Actual: foo');
         }
 
         assert.that('Hello World').ignoreCase().doesNotEndWith('Hello');
@@ -1025,35 +1025,35 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().doesNotEndWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().doesNotEndWith(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').ignoreCase().doesNotEndWith('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not end with [foo] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not ends with> foo, Actual: foo');
         }
 
         try {
 	        assert.that(' ').ignoreCase().doesNotEndWith('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to not end with [] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not ends with> , Actual:  ');
         }
 
         try {
 	        assert.that('Hello World').ignoreCase().doesNotEndWith('World');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Hello World] to not end with [World] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not ends with> World, Actual: Hello World');
         }
 
         try {
@@ -1070,14 +1070,14 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().doesNotEndWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().doesNotEndWith(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -1112,21 +1112,21 @@ public class StringAssertTest {
 	        assert.that((String) null).contains(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').contains(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('Interstate 96 (I-96) is an Interstate Highway').contains('interstate highway');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Interstate 96 (I-96) is an Interstate Highway] to contain [interstate highway] but is not');
+            assert.that(e).hasMessage('Expected: <contains> interstate highway, Actual: Interstate 96 (I-96) is an Interstate Highway');
         }
 
         assert.that(' ').contains('');
@@ -1140,14 +1140,14 @@ public class StringAssertTest {
 	        assert.that((String) null).contains(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').contains(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -1170,14 +1170,14 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().contains(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().contains(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         assert.that('Interstate 96 (I-96) is an Interstate Highway').ignoreCase().contains('interstate highway');
@@ -1192,14 +1192,14 @@ public class StringAssertTest {
 	        assert.that((String) null).ignoreCase().contains(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').ignoreCase().contains(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -1220,35 +1220,35 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotContain(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').doesNotContain(null);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
 	        assert.that('foo').doesNotContain('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not contain [foo] but is');
+            assert.that(e).hasMessage('Expected: <not contains> foo, Actual: foo');
         }
 
         try {
 	        assert.that(' ').doesNotContain('');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [ ] to not contain [] but is');
+            assert.that(e).hasMessage('Expected: <not contains> , Actual:  ');
         }
 
         try {
 	        assert.that('Hello World').doesNotContain('Hello');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Hello World] to not contain [Hello] but is');
+            assert.that(e).hasMessage('Expected: <not contains> Hello, Actual: Hello World');
         }
 
         assert.that('foo').doesNotContain('Foo', customMessage);
@@ -1258,14 +1258,14 @@ public class StringAssertTest {
 	        assert.that((String) null).doesNotContain(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected: <not null>, Actual: <null>');
         }
 
         try {
 	        assert.that('').doesNotContain(null, customMessage);
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that other parameter passed to assert with actual to be not [null] but is');
+            assert.that(e).hasMessage('Expected value must not be null');
         }
 
         try {
@@ -1295,21 +1295,21 @@ public class StringAssertTest {
 	        assert.that('foo').ignoreCase().doesNotContain('Foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not contain [Foo] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not contains> Foo, Actual: foo');
         }
 
         try {
 	        assert.that('foo').doesNotContain('foo');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [foo] to not contain [foo] but is');
+            assert.that(e).hasMessage('Expected: <not contains> foo, Actual: foo');
         }
 
         try {
 	        assert.that('Hello World').ignoreCase().doesNotContain('hello');
             assert.expectedException();
         } catch (Exception e) {
-            assert.that(e).hasMessage('Expected that actual [Hello World] to not contain [hello] (ignoring case) but is');
+            assert.that(e).hasMessage('Expected (ignoring case): <not contains> hello, Actual: Hello World');
         }
 
    }

@@ -26,115 +26,115 @@ global class DateTimeAssert extends BaseAssert {
         return this;
     }
 
-    global DateTimeAssert isSameAs(DateTime other) {
-        super.common_isSameAs(other);
+    global DateTimeAssert isSameAs(DateTime expected) {
+        super.common_isSameAs(expected);
         return this;
     }
-    global DateTimeAssert isSameAs(DateTime other, String msg) {
-        super.common_isSameAs(other, msg);
-        return this;
-    }
-
-    global DateTimeAssert isNotSameAs(DateTime other) {
-        super.common_isNotSameAs(other);
-        return this;
-    }
-    global DateTimeAssert isNotSameAs(DateTime other, String msg) {
-        super.common_isNotSameAs(other, msg);
+    global DateTimeAssert isSameAs(DateTime expected, String msg) {
+        super.common_isSameAs(expected, msg);
         return this;
     }
 
-    global DateTimeAssert isEqualsTo(String other) {
-        return isEqualsTo(parseIsoDateTime(other));
-    }
-    global DateTimeAssert isEqualsTo(DateTime other) {
-        super.common_isEqualsTo(other);
+    global DateTimeAssert isNotSameAs(DateTime expected) {
+        super.common_isNotSameAs(expected);
         return this;
     }
-    global DateTimeAssert isEqualsTo(String other, String msg) {
-        return isEqualsTo(parseIsoDateTime(other), msg);
-    }
-    global DateTimeAssert isEqualsTo(DateTime other, String msg) {
-        super.common_isEqualsTo(other, msg);
+    global DateTimeAssert isNotSameAs(DateTime expected, String msg) {
+        super.common_isNotSameAs(expected, msg);
         return this;
     }
 
-    global DateTimeAssert isNotEqualsTo(String other) {
-        return isNotEqualsTo(parseIsoDateTime(other));
+    global DateTimeAssert isEqualsTo(String expected) {
+        return isEqualsTo(parseIsoDateTime(expected));
     }
-    global DateTimeAssert isNotEqualsTo(DateTime other) {
-        super.common_isNotEqualsTo(other);
+    global DateTimeAssert isEqualsTo(DateTime expected) {
+        super.common_isEqualsTo(expected);
         return this;
     }
-    global DateTimeAssert isNotEqualsTo(String other, String msg) {
-        return isNotEqualsTo(parseIsoDateTime(other), msg);
+    global DateTimeAssert isEqualsTo(String expected, String msg) {
+        return isEqualsTo(parseIsoDateTime(expected), msg);
     }
-    global DateTimeAssert isNotEqualsTo(DateTime other, String msg) {
-        super.common_isNotEqualsTo(other, msg);
+    global DateTimeAssert isEqualsTo(DateTime expected, String msg) {
+        super.common_isEqualsTo(expected, msg);
+        return this;
+    }
+
+    global DateTimeAssert isNotEqualsTo(String expected) {
+        return isNotEqualsTo(parseIsoDateTime(expected));
+    }
+    global DateTimeAssert isNotEqualsTo(DateTime expected) {
+        super.common_isNotEqualsTo(expected);
+        return this;
+    }
+    global DateTimeAssert isNotEqualsTo(String expected, String msg) {
+        return isNotEqualsTo(parseIsoDateTime(expected), msg);
+    }
+    global DateTimeAssert isNotEqualsTo(DateTime expected, String msg) {
+        super.common_isNotEqualsTo(expected, msg);
         return this;
     }
     
-    global DateTimeAssert isAfter(String other) {
-        return isAfter(parseIsoDateTime(other));
+    global DateTimeAssert isAfter(String expected) {
+        return isAfter(parseIsoDateTime(expected));
     }
-    global DateTimeAssert isAfter(DateTime other) {
-        return isAfter(other, format('Expected that actual [{0}] is after [{1}] but is not', actual, other));
+    global DateTimeAssert isAfter(DateTime expected) {
+        return isAfter(expected, format('Expected that actual [{0}] is after [{1}] but is not', actual, expected));
     }
-    global DateTimeAssert isAfter(String other, String msg) {
-        return isAfter(parseIsoDateTime(other), msg);
+    global DateTimeAssert isAfter(String expected, String msg) {
+        return isAfter(parseIsoDateTime(expected), msg);
     }
-    global DateTimeAssert isAfter(DateTime other, String msg) {
+    global DateTimeAssert isAfter(DateTime expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
-        assert(actual > other, msg);
+        expectedIsNotNull(expected);
+        assert(actual > expected, msg);
         return this;
     }
 
-    global DateTimeAssert isOnOrAfter(String other) {
-        return isOnOrAfter(parseIsoDateTime(other));
+    global DateTimeAssert isOnOrAfter(String expected) {
+        return isOnOrAfter(parseIsoDateTime(expected));
     }
-    global DateTimeAssert isOnOrAfter(DateTime other) {
-        return isOnOrAfter(other, format('Expected that actual [{0}] is on or after [{1}] but is not', actual, other));
+    global DateTimeAssert isOnOrAfter(DateTime expected) {
+        return isOnOrAfter(expected, format('Expected that actual [{0}] is on or after [{1}] but is not', actual, expected));
     }
-    global DateTimeAssert isOnOrAfter(String other, String msg) {
-        return isOnOrAfter(parseIsoDateTime(other), msg);
+    global DateTimeAssert isOnOrAfter(String expected, String msg) {
+        return isOnOrAfter(parseIsoDateTime(expected), msg);
     }
-    global DateTimeAssert isOnOrAfter(DateTime other, String msg) {
+    global DateTimeAssert isOnOrAfter(DateTime expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
-        assert(actual >= other, msg);
+        expectedIsNotNull(expected);
+        assert(actual >= expected, msg);
         return this;
     }
 
-    global DateTimeAssert isBefore(String other) {
-        return isBefore(parseIsoDateTime(other));
+    global DateTimeAssert isBefore(String expected) {
+        return isBefore(parseIsoDateTime(expected));
     }
-    global DateTimeAssert isBefore(DateTime other) {
-        return isBefore(other, format('Expected that actual [{0}] is before [{1}] but is not', actual, other));
+    global DateTimeAssert isBefore(DateTime expected) {
+        return isBefore(expected, format('Expected that actual [{0}] is before [{1}] but is not', actual, expected));
     }
-    global DateTimeAssert isBefore(String other, String msg) {
-        return isBefore(parseIsoDateTime(other), msg);
+    global DateTimeAssert isBefore(String expected, String msg) {
+        return isBefore(parseIsoDateTime(expected), msg);
     }
-    global DateTimeAssert isBefore(DateTime other, String msg) {
+    global DateTimeAssert isBefore(DateTime expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
-        assert(actual < other, msg);
+        expectedIsNotNull(expected);
+        assert(actual < expected, msg);
         return this;
     }
 
-    global DateTimeAssert isOnOrBefore(String other) {
-        return isOnOrBefore(parseIsoDateTime(other));
+    global DateTimeAssert isOnOrBefore(String expected) {
+        return isOnOrBefore(parseIsoDateTime(expected));
     }
-    global DateTimeAssert isOnOrBefore(DateTime other) {
-        return isOnOrBefore(other, format('Expected that actual [{0}] is on or before [{1}] but is not', actual, other));
+    global DateTimeAssert isOnOrBefore(DateTime expected) {
+        return isOnOrBefore(expected, format('Expected that actual [{0}] is on or before [{1}] but is not', actual, expected));
     }
-    global DateTimeAssert isOnOrBefore(String other, String msg) {
-        return isOnOrBefore(parseIsoDateTime(other), msg);
+    global DateTimeAssert isOnOrBefore(String expected, String msg) {
+        return isOnOrBefore(parseIsoDateTime(expected), msg);
     }
-    global DateTimeAssert isOnOrBefore(DateTime other, String msg) {
+    global DateTimeAssert isOnOrBefore(DateTime expected, String msg) {
         isNotNull();
-        otherIsNotNull(other);
-        assert(actual <= other, msg);
+        expectedIsNotNull(expected);
+        assert(actual <= expected, msg);
         return this;
     }
     

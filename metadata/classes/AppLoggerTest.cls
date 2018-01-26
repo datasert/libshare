@@ -8,8 +8,8 @@ public class AppLoggerTest {
         Sf.appLogger.saveError('Module', 'Action', 'Something terrible happened.', new Utils().createTestException());
         
         App_Log__c alObj = queryAppLogs().get(0);
-        assert.that(alObj.Module__c).isEqualsTo('lib.Utils');
-        assert.that(alObj.Action__c).isEqualsTo('createTestException');
+        assert.that(alObj.Module__c).isEqualsTo('Module');
+        assert.that(alObj.Action__c).isEqualsTo('Action');
         assert.that(alObj.Type__c).isEqualsTo('Error');
         assert.that(alObj.Message__c).isEqualsTo('Something terrible happened.');
         assert.that(alObj.Details1__c).isNotBlank();

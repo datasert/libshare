@@ -1,7 +1,7 @@
 global virtual class Utils {
     private static final List<String> durationNamesLong = new List<String>{' years', ' months', ' days', ' hours', ' minutes', ' seconds', ' milliseconds'};
-    private static final List<String> durationNameShort = new List<String>{' yrs', ' mths', ' days', ' hrs', ' mins', ' secs', ' millis'};
-    private static final List<String> durationNameTiny = new List<String>{'y', 'mn', 'd', 'h', 'm', 's', 'ms'};
+    private static final List<String> durationNamesShort = new List<String>{' yrs', ' mths', ' days', ' hrs', ' mins', ' secs', ' millis'};
+    private static final List<String> durationNamesTiny = new List<String>{'y', 'mn', 'd', 'h', 'm', 's', 'ms'};
     public static final Long MILLIS = 1000;
     public static final Long SECS = 1000 * 60;
     public static final Long MINS = 60 * SECS;
@@ -714,17 +714,15 @@ global virtual class Utils {
     }
     
     global virtual String getDurationShort(long val) {
-        return getDuration(val, durationNameShort, ', ');
+        return getDuration(val, durationNamesShort, ', ');
     }
 
     global virtual String getDurationTiny(long val) {
-        return getDuration(val, durationNameTiny, ' ');
+        return getDuration(val, durationNamesTiny, ' ');
     }
 
     global virtual String getDuration(long val, List<String> names, String separator) {
 		List<Integer> values = getDurationParts(val);
-        
-        System.debug('Parts are ' + values);
         
         String output = appendDurationName('', values, names, 0, separator);
         output = appendDurationName(output, values, names, 1, separator);
@@ -746,7 +744,7 @@ global virtual class Utils {
         return String.isBlank(output) ? value : output + separator + value;
     }
     
-    global virtual List<Integer> getDurationParts(long val) {
+    private List<Integer> getDurationParts(long val) {
         Integer ms = Integer.valueOf(Math.mod(val, MILLIS));
         Integer s = Integer.valueOf(Math.mod(val / MILLIS, 60));
         Integer m = Integer.valueOf(Math.mod(val / SECS, 60));
@@ -763,7 +761,7 @@ global virtual class Utils {
         e.setMessage(msg);
         return e;        
     }
-     /*
+    
     global virtual String httpGet(String url) {
 		return HttpClient.INSTANCE.get(url);
     }
@@ -802,5 +800,5 @@ global virtual class Utils {
 
     global virtual Object httpDelete(String url, System.Type cls) {
 		return HttpClient.INSTANCE.httpDelete(url, cls);
-    }*/
+    }
 }

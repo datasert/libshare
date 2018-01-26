@@ -91,7 +91,7 @@ global class IntegerAssert extends BaseAssert {
     }
 
     global IntegerAssert isLessThan(Integer expected) {
-        return isLessThan(expected, format('Expected that actual [{0}] to be less than [{1}] but is not', actual, expected));
+        return isLessThan(expected, format('Expected: <less than> {0}, Actual: {1}', expected, actual));
     }
     
     global IntegerAssert isLessThan(Integer other, String msg) {
@@ -100,47 +100,47 @@ global class IntegerAssert extends BaseAssert {
     }
 
     global IntegerAssert isLessThanOrEqualsTo(Integer expected) {
-        return isLessThanOrEqualsTo(expected, format('Expected that actual [{0}] to be less than or equals to [{1}] but is not', actual, expected));
+        return isLessThanOrEqualsTo(expected, format('Expected: <less than or equals to> {0}, Actual: {1}', expected, actual));
     }
     
-    global IntegerAssert isLessThanOrEqualsTo(Integer other, String msg) {
-        assert(actual <= other, msg);
+    global IntegerAssert isLessThanOrEqualsTo(Integer expected, String msg) {
+        assert(actual <= expected, msg);
         return this;
     }
 
-    global IntegerAssert isGreaterThan(Integer other) {
-        return isGreaterThan(other, format('Expected that actual [{0}] to be greater than [{1}] but is not', actual, other));
+    global IntegerAssert isGreaterThan(Integer expected) {
+        return isGreaterThan(expected, format('Expected: <greater than> {0}, Actual: {1}', expected, actual));
     }
     
-    global IntegerAssert isGreaterThan(Integer other, String msg) {
-        assert(actual > other, msg);
+    global IntegerAssert isGreaterThan(Integer expected, String msg) {
+        assert(actual > expected, msg);
         return this;
     }
 
-    global IntegerAssert isGreaterThanOrEqualsTo(Integer other) {
-        return isGreaterThanOrEqualsTo(other, format('Expected that actual [{0}] to be greater than or equals to [{1}] but is not', actual, other));
+    global IntegerAssert isGreaterThanOrEqualsTo(Integer expected) {
+        return isGreaterThanOrEqualsTo(expected, format('Expected: <greater than or equals to> {0}, Actual: {1}', expected, actual));
     }
     
-    global IntegerAssert isGreaterThanOrEqualsTo(Integer other, String msg) {
-        assert(actual >= other, msg);
+    global IntegerAssert isGreaterThanOrEqualsTo(Integer expected, String msg) {
+        assert(actual >= expected, msg);
         return this;
     }
 
-    global IntegerAssert isBetweenInclusive(Integer start, Integer endValue) {
-        return isBetweenInclusive(start, endValue, format('Expected that actual [{0}] to be between (inclusive) [{1}] and [{2}] but is not', actual, start, endValue));
+    global IntegerAssert isBetweenInclusive(Integer startValue, Integer endValue) {
+        return isBetweenInclusive(startValue, endValue, format('Expected: <between (inclusive)> {0} and {1}, Actual: {2}', startValue, endValue, actual));
     }
     
-    global IntegerAssert isBetweenInclusive(Integer start, Integer endValue, String msg) {
-        assert(actual >= start && actual <= endValue, msg);
+    global IntegerAssert isBetweenInclusive(Integer startValue, Integer endValue, String msg) {
+        assert(actual >= startValue && actual <= endValue, msg);
         return this;
     }
 
-    global IntegerAssert isBetween(Integer start, Integer endValue) {
-        return isBetween(start, endValue, format('Expected that actual [{0}] to be between [{1}] and [{2}] but is not', actual, start, endValue));
+    global IntegerAssert isBetween(Integer startValue, Integer endValue) {
+        return isBetween(startValue, endValue, format('Expected: <between> {0} and {1}, Actual: {2}', startValue, endValue, actual));
     }
     
-    global IntegerAssert isBetween(Integer start, Integer endValue, String msg) {
-        assert(actual > start && actual < endValue, msg);
+    global IntegerAssert isBetween(Integer startValue, Integer endValue, String msg) {
+        assert(actual > startValue && actual < endValue, msg);
         return this;
     }
 
@@ -152,7 +152,7 @@ global class IntegerAssert extends BaseAssert {
         try {
             return Integer.valueOf(expected);
         } catch (Exception e) {
-            throw assertFalse(format('The expected value [{0}] must be a valid Integer', expected));
+            throw assertFalse(format('Expected: <valid integer>, Actual: {0}', expected));
         }
     }
 }

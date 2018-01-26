@@ -423,17 +423,35 @@ public class UtilsTest {
         assert.that(u.getDurationTiny(3600001)).isEqualsTo('1h 1ms');
         assert.that(u.getDurationTiny(3601001)).isEqualsTo('1h 1s 1ms');
         assert.that(u.getDurationTiny(3661001)).isEqualsTo('1h 1m 1s 1ms');
+    }
 
-        assert.that(u.getDurationTiny(86400000L)).isEqualsTo('1d');
-        assert.that(u.getDurationTiny(86400001L)).isEqualsTo('1d 1ms');
-        assert.that(u.getDurationTiny(86401001L)).isEqualsTo('1d 1s 1ms');
-        assert.that(u.getDurationTiny(86460001L)).isEqualsTo('1d 1m 1ms');
-        assert.that(u.getDurationTiny(1516832385000L)).isEqualsTo('1d 1m 1s 1ms');
+    testmethod static void test_durationShort() {
+        assert.that(u.getDurationShort(1)).isEqualsTo('1 millis');
 
-        assert.that(u.getDurationTiny(86461001L)).isEqualsTo('1d 1m 1s 1ms');
+        assert.that(u.getDurationShort(1000)).isEqualsTo('1 secs');
+        assert.that(u.getDurationShort(1001)).isEqualsTo('1 secs, 1 millis');
 
-        assert.that(u.getDurationTiny(1000 * 60 * 60 * 24 * 30L)).isEqualsTo('1mn');
-        assert.that(u.getDurationTiny((1000 * 60 * 60 * 24 * 30L) + 10L)).isEqualsTo('1mn 10ms');
-        assert.that(u.getDurationTiny((1000 * 60 * 60 * 24 * 30L) + 10 * 1000L)).isEqualsTo('1mn 10s');
+        assert.that(u.getDurationShort(61000)).isEqualsTo('1 mins, 1 secs');
+        assert.that(u.getDurationShort(61001)).isEqualsTo('1 mins, 1 secs, 1 millis');
+
+        assert.that(u.getDurationShort(3600000)).isEqualsTo('1 hrs');
+        assert.that(u.getDurationShort(3600001)).isEqualsTo('1 hrs, 1 millis');
+        assert.that(u.getDurationShort(3601001)).isEqualsTo('1 hrs, 1 secs, 1 millis');
+        assert.that(u.getDurationShort(3661001)).isEqualsTo('1 hrs, 1 mins, 1 secs, 1 millis');
+    }
+
+    testmethod static void test_durationLong() {
+        assert.that(u.getDurationLong(1)).isEqualsTo('1 milliseconds');
+
+        assert.that(u.getDurationLong(1000)).isEqualsTo('1 seconds');
+        assert.that(u.getDurationLong(1001)).isEqualsTo('1 seconds, 1 milliseconds');
+
+        assert.that(u.getDurationLong(61000)).isEqualsTo('1 minutes, 1 seconds');
+        assert.that(u.getDurationLong(61001)).isEqualsTo('1 minutes, 1 seconds, 1 milliseconds');
+
+        assert.that(u.getDurationLong(3600000)).isEqualsTo('1 hours');
+        assert.that(u.getDurationLong(3600001)).isEqualsTo('1 hours, 1 milliseconds');
+        assert.that(u.getDurationLong(3601001)).isEqualsTo('1 hours, 1 seconds, 1 milliseconds');
+        assert.that(u.getDurationLong(3661001)).isEqualsTo('1 hours, 1 minutes, 1 seconds, 1 milliseconds');
     }
 }

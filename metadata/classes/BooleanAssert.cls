@@ -46,23 +46,23 @@ global class BooleanAssert extends BaseAssert {
         return this;
     }
 
-    global BooleanAssert isEqualsTo(Boolean other) {
-        super.common_isEqualsTo(other);
+    global BooleanAssert isEqualsTo(Boolean expected) {
+        super.common_isEqualsTo(expected);
         return this;
     }
 
-    global BooleanAssert isEqualsTo(Boolean other, String msg) {
-        super.common_isEqualsTo(other, msg);
+    global BooleanAssert isEqualsTo(Boolean expected, String msg) {
+        super.common_isEqualsTo(expected, msg);
         return this;
     }
 
-    global BooleanAssert isNotEqualsTo(Boolean other) {
-        super.common_isNotEqualsTo(other);
+    global BooleanAssert isNotEqualsTo(Boolean expected) {
+        super.common_isNotEqualsTo(expected);
         return this;
     }
 
-    global BooleanAssert isNotEqualsTo(Boolean other, String msg) {
-        super.common_isNotEqualsTo(other, msg);
+    global BooleanAssert isNotEqualsTo(Boolean expected, String msg) {
+        super.common_isNotEqualsTo(expected, msg);
         return this;
     }
 }
