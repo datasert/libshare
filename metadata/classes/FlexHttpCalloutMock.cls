@@ -41,11 +41,11 @@ global class FlexHttpCalloutMock implements HttpCalloutMock {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_EQUALS, url), new FlexHttpResponseProvider(httpCode, body));
     }
 
-    global FlexHttpCalloutMock ifUrlEqualsIgnoreCaseReturn(String url, Object body) {
+    global FlexHttpCalloutMock ifUrlEqualsIcReturn(String url, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_EQUALS_IC, url), new FlexHttpResponseProvider(body));
     }
     
-    global FlexHttpCalloutMock ifUrlEqualsIgnoreCaseReturn(String url, Integer httpCode, Object body) {
+    global FlexHttpCalloutMock ifUrlEqualsIcReturn(String url, Integer httpCode, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_EQUALS_IC, url), new FlexHttpResponseProvider(httpCode, body));
     }
 
@@ -57,11 +57,11 @@ global class FlexHttpCalloutMock implements HttpCalloutMock {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_CONTAINS, url), new FlexHttpResponseProvider(statusCode, body));
     }
 
-    global FlexHttpCalloutMock ifUrlContainsIgnoreCaseReturn(String url, Object body) {
+    global FlexHttpCalloutMock ifUrlContainsIcReturn(String url, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_CONTAINS_IC, url), new FlexHttpResponseProvider(body));
     }
     
-    global FlexHttpCalloutMock ifUrlContainsIgnoreCaseReturn(String url, Integer statusCode, Object body) {
+    global FlexHttpCalloutMock ifUrlContainsIcReturn(String url, Integer statusCode, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_CONTAINS_IC, url), new FlexHttpResponseProvider(statusCode, body));
     }
 
@@ -73,11 +73,11 @@ global class FlexHttpCalloutMock implements HttpCalloutMock {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_ENDS_WITH, url), new FlexHttpResponseProvider(statusCode, body));
     }
 
-    global FlexHttpCalloutMock ifUrlEndsWithIgnoreCaseReturn(String url, Object body) {
+    global FlexHttpCalloutMock ifUrlEndsWithIcReturn(String url, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_ENDS_WITH_IC, url), new FlexHttpResponseProvider(body));
     }
     
-    global FlexHttpCalloutMock ifUrlEndsWithIgnoreCaseReturn(String url, Integer statusCode, Object body) {
+    global FlexHttpCalloutMock ifUrlEndsWithIcReturn(String url, Integer statusCode, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_ENDS_WITH_IC, url), new FlexHttpResponseProvider(statusCode, body));
     }
 
@@ -89,11 +89,11 @@ global class FlexHttpCalloutMock implements HttpCalloutMock {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_STARTS_WITH, url), new FlexHttpResponseProvider(statusCode, body));
     }
 
-    global FlexHttpCalloutMock ifUrlStartsWithIgnoreCaseReturn(String url, Object body) {
+    global FlexHttpCalloutMock ifUrlStartsWithIcReturn(String url, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_STARTS_WITH_IC, url), new FlexHttpResponseProvider(body));
     }
 
-    global FlexHttpCalloutMock ifUrlStartsWithIgnoreCaseReturn(String url, Integer statusCode, Object body) {
+    global FlexHttpCalloutMock ifUrlStartsWithIcReturn(String url, Integer statusCode, Object body) {
         return withConfig(new FlexHttpRequestMatcher(FlexHttpRequestMatcher.REQ_URL, FlexHttpRequestMatcher.OPER_STARTS_WITH_IC, url), new FlexHttpResponseProvider(statusCode, body));
     }
 

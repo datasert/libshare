@@ -14,23 +14,23 @@ global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
     global static final String REQ_HEADER_PREFIX = 'header:';
     
     global static final String OPER_EQUALS = 'equals';
-    global static final String OPER_EQUALS_IC = 'equalsIgnoreCase';
+    global static final String OPER_EQUALS_IC = 'equalsIc';
     global static final String OPER_STARTS_WITH = 'startsWith';
-    global static final String OPER_STARTS_WITH_IC = 'startsWithIgnoreCase';
+    global static final String OPER_STARTS_WITH_IC = 'startsWithIc';
     global static final String OPER_ENDS_WITH = 'endsWith';
-    global static final String OPER_ENDS_WITH_IC = 'endsWithIgnoreCase';
+    global static final String OPER_ENDS_WITH_IC = 'endsWithIc';
     global static final String OPER_CONTAINS = 'contains';
-    global static final String OPER_CONTAINS_IC = 'containsIgnoreCase';
+    global static final String OPER_CONTAINS_IC = 'containsIc';
     global static final String OPER_MATCHES = 'matches';
 
     global static final String OPER_NOT_EQUALS = 'notEquals';
-    global static final String OPER_NOT_EQUALS_IC = 'notEqualsIgnoreCase';
+    global static final String OPER_NOT_EQUALS_IC = 'notEqualsIc';
     global static final String OPER_NOT_STARTS_WITH = 'notStartsWith';
-    global static final String OPER_NOT_STARTS_WITH_IC = 'notStartsWithIgnoreCase';
+    global static final String OPER_NOT_STARTS_WITH_IC = 'notStartsWithIc';
     global static final String OPER_NOT_ENDS_WITH = 'notEndsWith';
-    global static final String OPER_NOT_ENDS_WITH_IC = 'notEndsWithIgnoreCase';
+    global static final String OPER_NOT_ENDS_WITH_IC = 'notEndsWithIc';
     global static final String OPER_NOT_CONTAINS = 'notContains';
-    global static final String OPER_NOT_CONTAINS_IC = 'notContainsIgnoreCase';
+    global static final String OPER_NOT_CONTAINS_IC = 'notContainsIc';
     global static final String OPER_NOT_MATCHES = 'notmatches';
 
     private static Utils u = Utils.INSTANCE;

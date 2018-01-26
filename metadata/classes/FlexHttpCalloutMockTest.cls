@@ -36,11 +36,11 @@ public class FlexHttpCalloutMockTest {
         mock.clearConfigs().ifUrlEqualsReturn('https://www.test.com', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 204, 'MatchedResponse');
 
-        mock.clearConfigs().ifUrlEqualsIgnoreCaseReturn('https://www.test.com', 'MatchedResponse');
+        mock.clearConfigs().ifUrlEqualsIcReturn('https://www.test.com', 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 200, 'MatchedResponse');
         assertResp(client.getReq('https://www.TEST.com'), 200, 'MatchedResponse');
 
-        mock.clearConfigs().ifUrlEqualsIgnoreCaseReturn('https://www.test.com', 204, 'MatchedResponse');
+        mock.clearConfigs().ifUrlEqualsIcReturn('https://www.test.com', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.TEST.com'), 204, 'MatchedResponse');
 
@@ -54,7 +54,7 @@ public class FlexHttpCalloutMockTest {
         mock.clearConfigs().ifUrlContainsReturn('test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 204, 'MatchedResponse');
 
-        mock.clearConfigs().ifUrlContainsIgnoreCaseReturn('test', 'MatchedResponse');
+        mock.clearConfigs().ifUrlContainsIcReturn('test', 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 200, 'MatchedResponse');
         assertResp(client.getReq('https://www.TEST.com'), 200, 'MatchedResponse');
         assertResp(client.getReq('https://www.datasert.com/test'), 200, 'MatchedResponse');
@@ -63,7 +63,7 @@ public class FlexHttpCalloutMockTest {
         assertResp(client.getReq('https://TEST.datasert.com'), 200, 'MatchedResponse');
         assertResp(client.getReq('https://www.google.com'), 200, 'DefaultResponse');
 
-        mock.clearConfigs().ifUrlContainsIgnoreCaseReturn('test', 204, 'MatchedResponse');
+        mock.clearConfigs().ifUrlContainsIcReturn('test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.TEST.com'), 204, 'MatchedResponse');
 
@@ -79,7 +79,7 @@ public class FlexHttpCalloutMockTest {
         mock.clearConfigs().ifUrlEndsWithReturn('test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com/test'), 204, 'MatchedResponse');
 
-        mock.clearConfigs().ifUrlEndsWithIgnoreCaseReturn('test', 'MatchedResponse');
+        mock.clearConfigs().ifUrlEndsWithIcReturn('test', 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 200, 'DefaultResponse');
         assertResp(client.getReq('https://www.TEST.com'), 200, 'DefaultResponse');
         assertResp(client.getReq('https://www.datasert.com/test'), 200, 'MatchedResponse');
@@ -88,7 +88,7 @@ public class FlexHttpCalloutMockTest {
         assertResp(client.getReq('https://TEST.datasert.com'), 200, 'DefaultResponse');
         assertResp(client.getReq('https://www.google.com'), 200, 'DefaultResponse');
 
-        mock.clearConfigs().ifUrlEndsWithIgnoreCaseReturn('test', 204, 'MatchedResponse');
+        mock.clearConfigs().ifUrlEndsWithIcReturn('test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com/test'), 204, 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com/TEST'), 204, 'MatchedResponse');
     
@@ -104,7 +104,7 @@ public class FlexHttpCalloutMockTest {
         mock.clearConfigs().ifUrlStartsWithReturn('https://test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://test.datasert.com'), 204, 'MatchedResponse');
 
-        mock.clearConfigs().ifUrlStartsWithIgnoreCaseReturn('https://test', 'MatchedResponse');
+        mock.clearConfigs().ifUrlStartsWithIcReturn('https://test', 'MatchedResponse');
         assertResp(client.getReq('https://www.test.com'), 200, 'DefaultResponse');
         assertResp(client.getReq('https://www.TEST.com'), 200, 'DefaultResponse');
         assertResp(client.getReq('https://www.datasert.com/test'), 200, 'DefaultResponse');
@@ -113,7 +113,7 @@ public class FlexHttpCalloutMockTest {
         assertResp(client.getReq('https://TEST.datasert.com'), 200, 'MatchedResponse');
         assertResp(client.getReq('https://www.google.com'), 200, 'DefaultResponse');
 
-        mock.clearConfigs().ifUrlStartsWithIgnoreCaseReturn('https://test', 204, 'MatchedResponse');
+        mock.clearConfigs().ifUrlStartsWithIcReturn('https://test', 204, 'MatchedResponse');
         assertResp(client.getReq('https://test.datasert.com'), 204, 'MatchedResponse');
         assertResp(client.getReq('https://TEST.datasert.com'), 204, 'MatchedResponse');
 
