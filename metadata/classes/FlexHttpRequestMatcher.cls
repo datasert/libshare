@@ -7,7 +7,7 @@
  * More than one matcher can be specified and if so, overall match only if all configured
  * matchers are matched. If there are no matched, then overall doesn't match.
  */
-global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
+global class FlexHttpRequestMatcher implements HttpRequestMatcher {
     global static final String REQ_METHOD = 'method';
     global static final String REQ_URL = 'url';
     global static final String REQ_BODY = 'body';
@@ -48,7 +48,7 @@ global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
         match(field, operator, value, minMatches, maxMatches);
     }
 
-    global virtual boolean isMatches(HttpRequestMatcherRequest req) {
+    global boolean isMatches(HttpRequestMatcherRequest req) {
         if (req == null || entries.isEmpty()) {
             return false;
         }
@@ -64,7 +64,7 @@ global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
         return true;
     }
     
-    protected virtual boolean isMatches(HttpRequest req, RequestMatcherEntry entry) {
+    private boolean isMatches(HttpRequest req, RequestMatcherEntry entry) {
         boolean matches = isMatches(getRequestValue(req, entry.field), entry.operator, entry.value);
         if (matches) {
             entry.currentMatches = u.increment(entry.currentMatches);
@@ -81,7 +81,7 @@ global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
         return matches;
     }
     
-    protected virtual boolean isMatches(Object actual, String operator, Object expected) {
+    private boolean isMatches(Object actual, String operator, Object expected) {
         
         String actualString = u.emptyIfNull(u.toString(actual));
         String expectedString = u.emptyIfNull(u.toString(expected));
@@ -161,7 +161,7 @@ global virtual class FlexHttpRequestMatcher implements HttpRequestMatcher {
         throw new LibshareException('Unsupported operator ' + operator);
     }
 
-    protected virtual Object getRequestValue(HttpRequest req, String field) {
+    private Object getRequestValue(HttpRequest req, String field) {
         if (u.equalsIc(field, REQ_METHOD)) {
             return req.getMethod();
         }

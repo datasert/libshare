@@ -1,4 +1,4 @@
-global virtual class Utils {
+global class Utils {
     private static final List<String> durationNamesLong = new List<String>{' years', ' months', ' days', ' hours', ' minutes', ' seconds', ' milliseconds'};
     private static final List<String> durationNamesShort = new List<String>{' yrs', ' mths', ' days', ' hrs', ' mins', ' secs', ' millis'};
     private static final List<String> durationNamesTiny = new List<String>{'y', 'mn', 'd', 'h', 'm', 's', 'ms'};
@@ -12,7 +12,7 @@ global virtual class Utils {
     
     global static final Utils INSTANCE = new Utils();
 	    
-    global virtual String encode(String value, String encodeMode) {
+    global String encode(String value, String encodeMode) {
         if (String.isBlank(value)) {
             return value;
         }
@@ -45,42 +45,42 @@ global virtual class Utils {
         return value;
     }
 
-    global virtual String encodeUrl(String value) {
+    global String encodeUrl(String value) {
         if (value == null) {
             return null;
         }
         return EncodingUtil.urlEncode(value, 'UTF-8');
     }
 
-    global virtual String encodeXml(String value) {
+    global String encodeXml(String value) {
         if (value == null) {
             return null;
         }
         return value.escapeXml();
     }
 
-    global virtual String encodeHtml(String value) {
+    global String encodeHtml(String value) {
         if (value == null) {
             return null;
         }
         return value.escapeHtml4();
     }
 
-    global virtual String encodeBase64(String value) {
+    global String encodeBase64(String value) {
         if (value == null) {
             return null;
         }
         return EncodingUtil.base64Encode(Blob.valueOf(value));
     }
 
-    global virtual String encodeBase64(Blob value) {
+    global String encodeBase64(Blob value) {
         if (value == null) {
             return null;
         }
         return EncodingUtil.base64Encode(value);
     }
 
-    global virtual String encodeBase64UrlSafe(Blob value) {
+    global String encodeBase64UrlSafe(Blob value) {
         if (value == null) {
             return null;
         }
@@ -92,7 +92,7 @@ global virtual class Utils {
         return encoded;
     }
     
-    global virtual String encodeBase64UrlSafe(String value) {
+    global String encodeBase64UrlSafe(String value) {
         if (value == null) {
             return null;
         }
@@ -100,7 +100,7 @@ global virtual class Utils {
 		return encodeBase64UrlSafe(Blob.valueOf(value));
     }
 
-    global virtual String decodeUrl(String value) {
+    global String decodeUrl(String value) {
         if (value == null) {
             return null;
         }
@@ -108,7 +108,7 @@ global virtual class Utils {
         return EncodingUtil.urlDecode(value, 'UTF-8');
     }
 
-    global virtual String decodeXml(String value) {
+    global String decodeXml(String value) {
         if (value == null) {
             return null;
         }
@@ -116,7 +116,7 @@ global virtual class Utils {
         return value.unescapeXml();
     }
 
-    global virtual String decodeHtml(String value) {
+    global String decodeHtml(String value) {
         if (value == null) {
             return null;
         }
@@ -124,7 +124,7 @@ global virtual class Utils {
         return value.unescapeHtml4();
     }
 
-    global virtual String decodeBase64(String value) {
+    global String decodeBase64(String value) {
         if (value == null) {
             return null;
         }
@@ -132,7 +132,7 @@ global virtual class Utils {
         return EncodingUtil.base64Decode(value).toString();
     }
 
-    global virtual Blob decodeBase64AsBlob(String value) {
+    global Blob decodeBase64AsBlob(String value) {
         if (value == null) {
             return null;
         }
@@ -140,11 +140,11 @@ global virtual class Utils {
         return EncodingUtil.base64Decode(value);
     }
     
-    global virtual Boolean toBoolean(Object obj) {
+    global Boolean toBoolean(Object obj) {
         return toBoolean(obj, false);
     }
     
-    global virtual Boolean toBoolean(Object obj, boolean defaultValue) {
+    global Boolean toBoolean(Object obj, boolean defaultValue) {
         if (obj == null) {
             return defaultValue;
 
@@ -157,11 +157,11 @@ global virtual class Utils {
     }
 
 
-    global virtual Integer toInteger(Object value, Integer defaultValue) {
+    global Integer toInteger(Object value, Integer defaultValue) {
 		return toInteger(value, null, defaultValue, null);
     }
     
-    global virtual Integer toInteger(Object value, Integer min, Integer defaultValue, Integer max) {
+    global Integer toInteger(Object value, Integer min, Integer defaultValue, Integer max) {
         if (value == null) {
             value = defaultValue;
         }
@@ -179,11 +179,11 @@ global virtual class Utils {
         return intValue;
     }
 
-    global virtual String replaceVars(String value, Map<String, Object> tokens) {
+    global String replaceVars(String value, Map<String, Object> tokens) {
     	return replaceVars(value, tokens, null);
     }
     
-    global virtual String replaceVars(String value, Map<String, Object> tokens, String escapeMode) {
+    global String replaceVars(String value, Map<String, Object> tokens, String escapeMode) {
         System.debug('Value [' + value + '] before merging with tokens [' + tokens + ']');
         if (String.isBlank(value) || tokens == null || tokens.isEmpty()) {
             return value;
@@ -199,11 +199,11 @@ global virtual class Utils {
         return value;
     }
     
-    global virtual String replaceVars(String message, String token, Object value) {
+    global String replaceVars(String message, String token, Object value) {
         return replaceVars(message, token, value, null);
     }
     
-    global virtual String replaceVars(String message, String token, Object value, String encodeMode) {
+    global String replaceVars(String message, String token, Object value, String encodeMode) {
         if (String.isBlank(message) || String.isBlank(token)) {
             return message;
         }
@@ -217,7 +217,7 @@ global virtual class Utils {
         return message.replaceAll('\\$\\{' + token + '}', emptyIfNull(strValue));
     }
     
-    global virtual String toString(Object value) {
+    global String toString(Object value) {
         if (value == null) {
             return null;
         }
@@ -236,7 +236,7 @@ global virtual class Utils {
     /**
      * Calculates the difference between two datetimes in days. If either of dates is null, then response is null as well.
      */ 
-    global virtual Integer diffInDays(DateTime d1, DateTime d2)  {
+    global Integer diffInDays(DateTime d1, DateTime d2)  {
         if (d1 == null || d2 == null) {
             return null;
         }
@@ -246,21 +246,21 @@ global virtual class Utils {
         return diff;
     }
 
-    global virtual String formatIsoDateTime(DateTime dateTimeVal) {
+    global String formatIsoDateTime(DateTime dateTimeVal) {
         if (dateTimeVal == null) {
             return null;
         }
         return dateTimeVal.formatGmt('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'');
     }
 
-    global virtual DateTime parseIsoDateTime(String dateTimeString) {
+    global DateTime parseIsoDateTime(String dateTimeString) {
         if (String.isBlank(dateTimeString)) {
             return null;
         }
         return (DateTime)json.deserialize('"' + dateTimeString + '"', DateTime.class);
     }
     
-    global virtual String formatIsoDate(Date dt) {
+    global String formatIsoDate(Date dt) {
         if (dt == null) {
             return null;
         }
@@ -269,26 +269,26 @@ global virtual class Utils {
         return dtt.formatGmt('yyyy-MM-dd');
     }
 
-    global virtual Date parseIsoDate(String dateString) {
+    global Date parseIsoDate(String dateString) {
         if (String.isBlank(dateString)) {
             return null;
         }
         return (Date) parseIsoDateTime(dateString + 'T00:00:00Z').dateGmt();
     }
 
-    global virtual String emptyIfNull (String value) {
+    global String emptyIfNull (String value) {
         return value == null ? '' : value;
     }
 
-    global virtual List<ApexPages.Message> getPageErrors() {
+    global List<ApexPages.Message> getPageErrors() {
         return getPageMessages(ApexPages.Severity.ERROR);
     }
     
-    global virtual List<ApexPages.Message> getPageInfos() {
+    global List<ApexPages.Message> getPageInfos() {
         return getPageMessages(ApexPages.Severity.INFO);
     }
 
-    global virtual List<ApexPages.Message> getPageMessages(ApexPages.Severity severity) {
+    global List<ApexPages.Message> getPageMessages(ApexPages.Severity severity) {
         List<ApexPages.Message> messages = new List<ApexPages.Message>();
         for(ApexPages.Message msg : ApexPages.getMessages()) {
             if (msg.getSeverity() == severity) {
@@ -302,31 +302,31 @@ global virtual class Utils {
     /**
      * Adds a info message with specified label to the ApexMessages.
      */
-    global virtual void addPageInfo(String messageString) {
+    global void addPageInfo(String messageString) {
         ApexPages.Message message = new ApexPages.Message(ApexPages.severity.INFO, messageString);
         ApexPages.addMessage(message);
     }
     
-    global virtual void addPageError(String message) {
+    global void addPageError(String message) {
         ApexPages.Message messageObj = new ApexPages.Message(ApexPages.severity.ERROR, message);
         ApexPages.addMessage(messageObj);
     }
     
-    global virtual void addPageError(Exception e) {
+    global void addPageError(Exception e) {
         System.debug(getStackTrace(e));
         addPageError(e.getMessage());
     }
     
-    global virtual PageReference getCurrentPage() {
+    global PageReference getCurrentPage() {
         return System.currentPageReference();
     }
 
-    global virtual String getPageParam(String param) {
+    global String getPageParam(String param) {
         String value = getPageParam(param, null);
         return value;
     }
 
-    global virtual String getPageParam(String param, String defaultValue) {
+    global String getPageParam(String param, String defaultValue) {
         PageReference page = getCurrentPage();
         if (page == null) {
             debug('Current page is null while getting the parameter ' + param);
@@ -348,15 +348,15 @@ global virtual class Utils {
         System.debug(message);
     }
     
-    global virtual String join(Map<String, Object> parms) {
+    global String join(Map<String, Object> parms) {
         return join(null, null, null, parms);
     }
     
-    global virtual String join(String fieldSeparator, String keyValueSeparator, Map<String, Object> parms) {
+    global String join(String fieldSeparator, String keyValueSeparator, Map<String, Object> parms) {
         return join(fieldSeparator, keyValueSeparator, null, parms);
     }
     
-    global virtual String join(String fieldSeparator, String keyValueSeparator, String encodeMode, Map<String, Object> parms) {
+    global String join(String fieldSeparator, String keyValueSeparator, String encodeMode, Map<String, Object> parms) {
         String output = '';
         
         if (parms == null) {
@@ -382,31 +382,31 @@ global virtual class Utils {
         return output;
     }
     
-    global virtual String join(Object value1, String value2){
+    global String join(Object value1, String value2){
         return join('', false, new Object[]{value1, value2});
     }
     
-    global virtual String join(Object value1, Object value2, Object value3){
+    global String join(Object value1, Object value2, Object value3){
         return join(null, false, new Object[]{value1, value2, value3});
     }
 
-    global virtual String joinWith(String separator, Object value1, Object value2){
+    global String joinWith(String separator, Object value1, Object value2){
         return join(separator, false, new Object[]{value1, value2});
     }
 
-    global virtual String joinWith(String separator, Object value1, Object value2, Object value3){
+    global String joinWith(String separator, Object value1, Object value2, Object value3){
         return join(separator, false, new Object[]{value1, value2, value3});
     }
 
-    global virtual String join(List<Object> strings){
+    global String join(List<Object> strings){
         return join(null, false, strings);
     }
 
-    global virtual String join(String separator, List<Object> strings){
+    global String join(String separator, List<Object> strings){
         return join(separator, false, strings);
     }
     
-    global virtual String join(String separator, Boolean skipNulls, List<Object> strings) {
+    global String join(String separator, Boolean skipNulls, List<Object> strings) {
         if(strings == null){
             return null;
         }
@@ -431,7 +431,7 @@ global virtual class Utils {
         return joinedString;
     }
     
-    global virtual String getStackTrace(Exception e) {
+    global String getStackTrace(Exception e) {
         if (e == null) {
             return null;
         }
@@ -452,7 +452,7 @@ global virtual class Utils {
     /**
      * Returns the root cause of this exception chain.
      */
-    global virtual Exception getRootCause(Exception e) {
+    global Exception getRootCause(Exception e) {
         if (e == null || e.getCause() == null) {
             return e;
         }
@@ -460,7 +460,7 @@ global virtual class Utils {
         return getRootCause(e.getCause());
     }
 
-    global virtual DateTime now() {
+    global DateTime now() {
         if (Test.isRunningTest() && TestUtils.getCurrentDateTime() != null) {
             return TestUtils.getCurrentDateTime();
         }
@@ -468,7 +468,7 @@ global virtual class Utils {
         return DateTime.now();
     }
 
-    global virtual Date today() {
+    global Date today() {
         if (Test.isRunningTest() && TestUtils.getCurrentDate() != null) {
             return TestUtils.getCurrentDate();
         }
@@ -476,23 +476,23 @@ global virtual class Utils {
         return Date.today();
     }
 
-    global virtual SObject firstNotNull(SObject obj1, SObject obj2) {
+    global SObject firstNotNull(SObject obj1, SObject obj2) {
         return obj1 != null ? obj1 : obj2;
     }
 
-    global virtual Object firstNotNull(Object obj1, Object obj2) {
+    global Object firstNotNull(Object obj1, Object obj2) {
         return obj1 != null ? obj1 : obj2;
     }
 
-    global virtual Object firstNotNull(Object obj1, Object obj2, Object obj3) {
+    global Object firstNotNull(Object obj1, Object obj2, Object obj3) {
         return firstNotNull( firstNotNull(obj1, obj2), obj3);
     }
 
-    global virtual String firstNotBlank(String v1, String v2) {
+    global String firstNotBlank(String v1, String v2) {
         return String.isBlank(v1) ? v2 : v1;
     }
 
-    global virtual String truncateEnd(String value, Integer size) {
+    global String truncateEnd(String value, Integer size) {
         if (value == null) {
             return null;
         }
@@ -504,7 +504,7 @@ global virtual class Utils {
         return value.substring(0, size);
     }
     
-    global virtual String truncateStart(String value, Integer size) {
+    global String truncateStart(String value, Integer size) {
         if (value == null) {
             return null;
         }
@@ -516,7 +516,7 @@ global virtual class Utils {
         return value.substring(value.length() - size);
     }
 
-    global virtual boolean equalsIc(String value1, String value2) {
+    global boolean equalsIc(String value1, String value2) {
         if (value1 == null && value2 == null) {
             return true;
         }
@@ -528,23 +528,23 @@ global virtual class Utils {
         return value1.equalsIgnoreCase(value2);
     }
 
-    global virtual Integer increment(Integer value) {
+    global Integer increment(Integer value) {
         return increment(value, 1);
     }
 
-    global virtual Integer increment(Integer value, Integer incrementValue) {
+    global Integer increment(Integer value, Integer incrementValue) {
         return (value == null || value == 0) ? incrementValue : value + incrementValue;
     }
 
-    global virtual Decimal increment(Decimal value) {
+    global Decimal increment(Decimal value) {
 		return increment(value, 1);
     }
     
-    global virtual Decimal increment(Decimal value, Integer incrementValue) {
+    global Decimal increment(Decimal value, Integer incrementValue) {
         return (value == null || value == 0.0) ? incrementValue: value + incrementValue;
     }
 
-    global virtual String getSobject(Id sobjId) {
+    global String getSobject(Id sobjId) {
         if (sobjId == null) {
             return sobjId;
         }
@@ -552,7 +552,7 @@ global virtual class Utils {
         return sobjId.getSobjectType().getDescribe().getName();
     }
 
-    global virtual String getSobject(Sobject sobj) {
+    global String getSobject(Sobject sobj) {
         if (sobj == null) {
             return null;
         }
@@ -560,7 +560,7 @@ global virtual class Utils {
         return sobj.getSObjectType().getDescribe().getName();
     }
     
-    global virtual List<String> split(String text, Integer size) {
+    global List<String> split(String text, Integer size) {
 	    List<String> splits = new List<String>();
         if (text == null) {
             return splits;
@@ -573,7 +573,7 @@ global virtual class Utils {
     	return splits;
     }
     
-    global virtual Exception createTestException() {
+    global Exception createTestException() {
         try {
             Integer value = 100 / 0;
             return null;
@@ -582,15 +582,15 @@ global virtual class Utils {
         }
     }
     
-    global virtual String[] getCallingClassAndMethod() {
+    global String[] getCallingClassAndMethod() {
         return getClassAndMethod(createTestException(), 3);
     }
 
-    global virtual String[] getClassAndMethod(Exception e) {
+    global String[] getClassAndMethod(Exception e) {
         return getClassAndMethod(e, 0);
     }
     
-    global virtual String[] getClassAndMethod(Exception e, Integer lineNum) {
+    global String[] getClassAndMethod(Exception e, Integer lineNum) {
         return getClassAndMethod(getRootCause(e).getStackTraceString().split('\n'), lineNum);
     }
 
@@ -651,14 +651,14 @@ global virtual class Utils {
      * Note that it is not a good practice to sleep during actual live thread but is useful during testing. So use this
      * with caution.
      */
-    global virtual void sleep(Integer milliSeconds) {
+    global void sleep(Integer milliSeconds) {
         Long startingTime = System.now().getTime();
         while (System.now().getTime() - startingTime < milliSeconds)  {
             getRandomString(1000);
         }
     }
 
-    global virtual String getRandomString(Integer length) {
+    global String getRandomString(Integer length) {
         String randomString = String.valueOf(Math.abs(Crypto.getRandomLong()));
         while(true) {
             if (randomString.length() == length) {
@@ -681,25 +681,25 @@ global virtual class Utils {
     /**
      * Generates a random number between 0 (inclusive) and given upper limit (inclusive)
      */
-    global virtual Integer getRandomInteger(Integer upper) {
+    global Integer getRandomInteger(Integer upper) {
 		return getRandomInteger(0, upper);
     }
 
     /**
      * Generates a random number between 0 (inclusive) and 2,147,483,647 (inclusive)
      */
-    global virtual Integer getRandomInteger() {
+    global Integer getRandomInteger() {
 		return getRandomInteger(0, 2147483647);
     }
 
     /**
      * Generates a random number between lower (inclusive) and upper (inclusive)
      */
-    global virtual Integer getRandomInteger(Integer lower, Integer upper) {
+    global Integer getRandomInteger(Integer lower, Integer upper) {
 		return Math.round(Math.random() * (upper - lower)) + lower;
     }
 
-    global virtual String getStaticResource(String staticResourceName) {
+    global String getStaticResource(String staticResourceName) {
         List<StaticResource> srs = [select id, body from StaticResource Where Name = :staticResourceName];
         if (srs.isEmpty()) {
             throw new LibshareException('Static Resource ' + staticResourceName + ' is not defined.');
@@ -709,19 +709,19 @@ global virtual class Utils {
         return contents;
     }
     
-    global virtual String getDurationLong(long val) {
+    global String getDurationLong(long val) {
         return getDuration(val, durationNamesLong, ', ');
     }
     
-    global virtual String getDurationShort(long val) {
+    global String getDurationShort(long val) {
         return getDuration(val, durationNamesShort, ', ');
     }
 
-    global virtual String getDurationTiny(long val) {
+    global String getDurationTiny(long val) {
         return getDuration(val, durationNamesTiny, ' ');
     }
 
-    global virtual String getDuration(long val, List<String> names, String separator) {
+    global String getDuration(long val, List<String> names, String separator) {
 		List<Integer> values = getDurationParts(val);
         
         String output = appendDurationName('', values, names, 0, separator);
@@ -756,49 +756,49 @@ global virtual class Utils {
         return new List<Integer>{y, mn, d, h, m, s, ms};
     }
     
-    global virtual CalloutException getCalloutException(String msg) {
+    global CalloutException getCalloutException(String msg) {
         CalloutException e = new CalloutException();
         e.setMessage(msg);
         return e;        
     }
     
-    global virtual String httpGet(String url) {
+    global String httpGet(String url) {
 		return HttpClient.INSTANCE.get(url);
     }
 
-    global virtual Object httpGet(String url, System.Type cls) {
+    global Object httpGet(String url, System.Type cls) {
 		return HttpClient.INSTANCE.get(url, cls);
     }
 
-    global virtual String httpPost(String url, Object body) {
+    global String httpPost(String url, Object body) {
 		return HttpClient.INSTANCE.post(url, body);
     }
 
-    global virtual Object httpPost(String url, Object body, System.Type cls) {
+    global Object httpPost(String url, Object body, System.Type cls) {
 		return HttpClient.INSTANCE.post(url, body, cls);
     }
 
-    global virtual String httpPatch(String url, Object body) {
+    global String httpPatch(String url, Object body) {
 		return HttpClient.INSTANCE.patch(url, body);
     }
 
-    global virtual Object httpPatch(String url, Object body, System.Type cls) {
+    global Object httpPatch(String url, Object body, System.Type cls) {
 		return HttpClient.INSTANCE.patch(url, body, cls);
     }
 
-    global virtual String httpPut(String url, Object body) {
+    global String httpPut(String url, Object body) {
 		return HttpClient.INSTANCE.put(url, body);
     }
 
-    global virtual Object httpPut(String url, Object body, System.Type cls) {
+    global Object httpPut(String url, Object body, System.Type cls) {
 		return HttpClient.INSTANCE.put(url, body, cls);
     }
 
-    global virtual String httpDelete(String url) {
+    global String httpDelete(String url) {
 		return HttpClient.INSTANCE.httpDelete(url);
     }
 
-    global virtual Object httpDelete(String url, System.Type cls) {
+    global Object httpDelete(String url, System.Type cls) {
 		return HttpClient.INSTANCE.httpDelete(url, cls);
     }
 }

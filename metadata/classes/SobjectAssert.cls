@@ -1,4 +1,4 @@
-global virtual class SobjectAssert extends BaseAssert {
+global class SobjectAssert extends BaseAssert {
     private Sobject actual;
 
     public SobjectAssert(Asserter asserter, Sobject actual) {
