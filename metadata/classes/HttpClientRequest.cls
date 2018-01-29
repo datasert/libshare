@@ -203,13 +203,11 @@ global virtual class HttpClientRequest {
     }
 
     global virtual Object sendToObject(System.Type type) {
-        //return send().bodyAsObject(type);
-        return null;
+        return send().bodyAsObject(type);
     }
 
     global virtual JsonMapper sendToJsonMapper() {
-		//return send().bodyAsJsonMapper();
-		return null;
+		return send().bodyAsJsonMapper();
     }
 
     global virtual HttpClientResponse send() {

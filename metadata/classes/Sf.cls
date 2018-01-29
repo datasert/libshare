@@ -13,6 +13,13 @@ global class Sf {
         return assert;
     }private set;}
 
+    global static Utils utils {get {
+        if (utils == null) {
+            utils = new Utils();
+        }
+        return utils;
+    }private set;}
+
     global static AppLogger appLogger {get {
         if (appLogger == null) {
             appLogger =  new AppLogger();

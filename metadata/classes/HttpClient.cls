@@ -1,3 +1,6 @@
+/**
+ * Convenience wrapper around Salesforce's http class to interact with http services.
+ */
 global virtual class HttpClient {
     protected HttpClientRequest defaults = new HttpClientRequest();
     public static HttpClient INSTANCE = new HttpClient();
