@@ -34,7 +34,7 @@ global class AppLogger {
             processLog(appLog);
         }
         
-        insert appLogs;
+        DbChanges.save(appLogs);
     }
 	
 	/**

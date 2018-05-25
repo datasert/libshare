@@ -319,14 +319,17 @@ global class DbChanges {
     }
     
     private void updateChanges(List<Sobject> sobjs) {
+        FlsUtils.ensureUpdateable(sobjs.get(0));
 		Database.update(sobjs, true);
     }
 
     private void insertChanges(List<Sobject> sobjs) {
-		Database.insert(sobjs, true);
+        FlsUtils.ensureCreateable(sobjs.get(0));
+        Database.insert(sobjs, true);
     }
 
     private void deleteChanges(List<Sobject> sobjs) {
+        FlsUtils.ensureDeletable(sobjs.get(0));
         //For delete we will go with partial success as it can errors out if entity is already delete.
 		Database.delete(sobjs, false);
     }
